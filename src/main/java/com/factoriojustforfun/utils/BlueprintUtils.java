@@ -61,6 +61,7 @@ public class BlueprintUtils {
         if (!newDescription.equals(description)) System.out.println("Blueprint " + blueprint.getLabel() + " had an outdated tag!");
         blueprint.setDescription(newDescription.trim());
 
+        if (blueprint.getEntities() == null) return;
         blueprint.getEntities().parallelStream().filter(it -> it.getName().equals("train-stop")).forEach(BlueprintUtils::fixStation);
     }
 
@@ -73,8 +74,8 @@ public class BlueprintUtils {
                 .replaceAll("(\\s\\*)+$", "") // Remove stars
                 .replaceAll("3-8", "") // Remove 3-8 indicators
                 .replaceAll("\\[img=(item|fluid).([\\w\\-]+)]", "[$1=$2]") // Replace [img=item/fluid.name] with [item/fluid=name]
-                .replaceAll("^\\[[UL]]\\s\\[", "[$1][") // Remove space between [U/L] and a [Tag]
-                .replaceAll("^\\[[UL]](\\w)", "[$1] $2") // Add space between [U/L] and a tag that's not in brackets
+                .replaceAll("^\\[([UL])]\\s\\[", "[$1][") // Remove space between [U/L] and a [Tag]
+                .replaceAll("^\\[([UL])](\\w)", "[$1] $2") // Add space between [U/L] and a tag that's not in brackets
                 .replaceAll("\\[U]\\[virtual-signal=signal-red] Trash", "[U][virtual-signal=signal-red]Trash") // Fix trash trains
                 .trim();
 

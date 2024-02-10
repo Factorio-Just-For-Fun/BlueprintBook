@@ -1,5 +1,6 @@
 package com.factoriojustforfun;
 
+import com.factoriojustforfun.books.AllBook;
 import com.factoriojustforfun.books.StarterBook;
 import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
@@ -15,7 +16,7 @@ import java.util.HashSet;
 
 public class BookBuilder {
     public static void main(String[] args) {
-        BlueprintBookItem item = new BlueprintBookItem(StarterBook.generateFJFFBook());
+        BlueprintBookItem item = new BlueprintBookItem(AllBook.generateBook());
         BlueprintUtils.patch(item);
         File outputFile = new File("output.txt");
 

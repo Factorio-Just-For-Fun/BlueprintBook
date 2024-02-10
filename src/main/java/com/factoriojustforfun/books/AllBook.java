@@ -47,8 +47,14 @@ public class AllBook {
                         if (b instanceof BlueprintBookItem) return 1;
                     }
 
-                    if (a instanceof BlueprintItem && b instanceof BlueprintItem)
-                       return ((BlueprintItem) a).getBlueprint().getLabel().compareTo(((BlueprintItem) b).getBlueprint().getLabel());
+                    if (a instanceof BlueprintItem && b instanceof BlueprintItem) {
+                        String labelA = ((BlueprintItem) a).getBlueprint().getLabel();
+                        String labelB = ((BlueprintItem) b).getBlueprint().getLabel();
+                        if (labelA == null) labelA = "";
+                        if (labelB == null) labelB = "";
+
+                        return labelA.compareTo(labelB);
+                    }
                     return 0;
                 }).collect(Collectors.toList());
     }

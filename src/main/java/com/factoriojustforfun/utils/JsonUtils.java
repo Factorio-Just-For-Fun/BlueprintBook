@@ -75,8 +75,8 @@ public class JsonUtils {
     public static JsonNode decodeToJson(File file) {
         try {
             return decodeToJson(Files.readAllLines(file.toPath()).get(0));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new RuntimeException("Error in file" + file.getAbsolutePath(), e);
         }
     }
 
