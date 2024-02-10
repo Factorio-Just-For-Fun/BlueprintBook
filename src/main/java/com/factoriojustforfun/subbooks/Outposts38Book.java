@@ -5,7 +5,6 @@ import com.factoriojustforfun.objects.BlueprintBook;
 import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.factoriojustforfun.objects.Icon;
 import com.factoriojustforfun.objects.SignalID;
-import com.factoriojustforfun.utils.BlueprintUtils;
 import com.factoriojustforfun.utils.JsonUtils;
 
 import java.util.ArrayList;

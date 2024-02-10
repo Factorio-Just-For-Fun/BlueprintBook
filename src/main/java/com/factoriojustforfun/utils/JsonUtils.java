@@ -1,27 +1,21 @@
 package com.factoriojustforfun.utils;
 
-import com.factoriojustforfun.objects.*;
-import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
-import com.factoriojustforfun.objects.bookentries.BlueprintItem;
+import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.networknt.schema.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.zip.Deflater;
+import java.util.Base64;
+import java.util.InputMismatchException;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
