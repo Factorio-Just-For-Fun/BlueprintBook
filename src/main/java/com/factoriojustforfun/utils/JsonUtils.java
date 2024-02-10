@@ -3,6 +3,7 @@ package com.factoriojustforfun.utils;
 import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.*;
@@ -35,6 +36,8 @@ public class JsonUtils {
         SCHEMA = factory.getSchema(SchemaLocation.of("classpath:schema.json"), config);
 
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
+        MAPPER.disable(DeserializationFeature.ACCEPT_FLOAT_AS_INT);
+
 
     }
 
@@ -83,6 +86,14 @@ public class JsonUtils {
             return MAPPER.treeToValue(decodeToJson(file), BlueprintBookEntry.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Error in " + String.join(" - ", file.getAbsolutePath()), e);
+        }
+    }
+
+    public static BlueprintBookEntry fromText(String text) {
+        try {
+            return MAPPER.readValue(text, BlueprintBookEntry.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
