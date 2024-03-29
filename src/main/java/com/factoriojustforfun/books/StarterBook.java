@@ -66,9 +66,11 @@ public class StarterBook {
     }
 
     public static BlueprintBookItem generateFJFFBook() {
+        String date = ISO_LOCAL_DATE.format(LocalDate.now());
+
         BlueprintBook book = new BlueprintBook();
-        book.setLabel("[FJFF] Starter");
-        book.setDescription("Starter Game Blueprints for the Factorio Just For Fun Server. Compiled, scripted, and filtered by Ashy.");
+        book.setLabel("[FJFF] " + date);
+        book.setDescription("Starter Game Blueprints for the Factorio Just For Fun Server. Compiled, scripted, and filtered by Ashy.\nhttps://discord.gg/ehHEDDnPWA");
         book.setIcons(Arrays.asList(
                 new Icon(new SignalID("signal-F", SignalID.Type.VIRTUAL), 1),
                 new Icon(new SignalID("signal-J", SignalID.Type.VIRTUAL), 2),
@@ -88,7 +90,7 @@ public class StarterBook {
         generateBook(book, EnumSet.of(BookFlags.TRAINS_3_8, BookFlags.EXPENSIVE_RECIPES));
 
         BlueprintBookItem bookItem = new BlueprintBookItem(book);
-        String tag = ISO_LOCAL_DATE.format(LocalDate.now()) + " FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
+        String tag = date + "FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
 
         BlueprintUtils.patch(bookItem, tag);
         return bookItem;
