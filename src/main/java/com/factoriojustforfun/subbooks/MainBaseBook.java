@@ -13,10 +13,8 @@ import java.util.Set;
 
 public class MainBaseBook {
     public static final List<String> MAIN_BUS = Arrays.asList(
-            "space-science-pack",
-            "production-science-pack;utility-science-pack",
-            "military-science-pack;chemical-science-pack",
-            "automation-science-pack;logistic-science-pack",
+
+            "sulfur", "sulfur", "iron-gear-wheel", "iron-gear-wheel",
 
             "iron-plate", "iron-plate", "iron-plate", "iron-plate",
             "iron-plate", "iron-plate", "iron-plate", "iron-plate",
@@ -40,7 +38,12 @@ public class MainBaseBook {
             "advanced-circuit", "advanced-circuit", "advanced-circuit", "processing-unit",
 
             "stone", "stone", "stone-brick", "stone-brick",
-            "coal", "coal", "battery", "concrete"
+            "coal", "coal", "battery", "iron-ore",
+
+            "space-science-pack",
+            "production-science-pack;utility-science-pack",
+            "military-science-pack;chemical-science-pack",
+            "automation-science-pack;logistic-science-pack"
     );
     public static BlueprintBook generateBook(Set<BookFlags> flags) {
         BlueprintBook book = new BlueprintBook();
@@ -67,6 +70,7 @@ public class MainBaseBook {
         if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
             blueprints.add(JsonUtils.fromFile("belt", "fluids-expensive", "batteries-mskitty.txt"));
             blueprints.add(JsonUtils.fromFile("belt", "intermediates-expensive", "gears-mskitty.txt"));
+            blueprints.add(JsonUtils.fromFile("belt", "intermediates-expensive", "gears-from-raw-kerza.txt"));
             blueprints.add(JsonUtils.fromFile("belt", "intermediates-expensive", "green-chips-drsupergood.txt"));
             blueprints.add(JsonUtils.fromFile("belt", "intermediates-expensive", "green-chips-15k-mskitty.txt"));
             blueprints.add(JsonUtils.fromFile("belt", "intermediates-expensive", "red-chips-kerza.txt"));
