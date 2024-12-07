@@ -90,7 +90,18 @@
         "snap-to-grid": { "$ref": "#/$defs/Position" },
         "absolute-snapping": { "type": "boolean" },
         "position-relative-to-grid": { "$ref": "#/$defs/Position" },
-        "version": { "type": "integer" }
+        "version": { "type": "integer" },
+        "stock_connections": {},
+        "parameters": {},
+        "wires": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
       },
       "additionalProperties": false,
       "required": [ "item", "version" ]
@@ -111,10 +122,13 @@
       "properties": {
         "name": { "type": "string" },
         "backup": { "type": "string" },
-        "type": { "enum": [ "item", "fluid", "virtual" ] }
+        "type": { "enum": [ "item", "fluid", "virtual", "space-location" ] },
+        "quality": { "$ref": "#/$defs/Quality" }
       },
-      "additionalProperties": false,
-      "required": [ "type" ]
+      "additionalProperties": false
+    },
+    "Comparator": {
+      "enum": ["<", ">", "="]
     },
 
     "Entity": {
@@ -123,6 +137,7 @@
         "entity_number": { "type": "integer", "minimum": 1 },
         "name": { "type": "string" },
         "position": { "$ref": "#/$defs/Position" },
+        "quality": { "$ref": "#/$defs/Quality" },
 
         "direction": { "type": "integer", "minimum": 0 },
         "orientation": { "type": "number", "minimum": 0, "maximum": 1 },
@@ -148,7 +163,21 @@
 
         "input_priority": { "enum": [ "left", "right" ]},
         "output_priority": { "enum": [ "left", "right" ]},
-        "filter": { "type": "string" },
+        "filter": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string"},
+                "quality": {"$ref": "#/$defs/Quality"},
+                "comparator": {"$ref":  "#/$defs/Comparator"}
+              }
+            }
+          ]
+        },
         "filters": { "type": "array", "items": { "$ref": "#/$defs/ItemFilter" }},
         "filter_mode": { "enum": [ "whitelist", "blacklist" ]},
 
@@ -157,8 +186,7 @@
         "pickup_position": { "$ref": "#/$defs/Position" },
 
         "request_filters": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/LogisticFilter" }
+          "$ref": "#/$defs/LogisticFilter"
         },
         "request_from_buffers": { "type": "boolean" },
 
@@ -182,6 +210,10 @@
       "requiredProperties": [ "entity_number", "name", "position" ]
     },
 
+    "Quality": {
+      "enum": [ "normal", "uncommon", "rare", "epic", "legendary" ]
+    },
+
     "Inventory": {
       "type": "object",
       "properties": {
@@ -197,11 +229,30 @@
 
     "Schedule": {
       "type": "object",
-      "properties": {
-        "schedule": {
-          "type": "array",
-          "items": { "$ref": "#/$defs/ScheduleRecord" }
+      "oneOf": [
+        {
+          "properties": {
+            "schedule": {
+              "type": "object",
+              "properties": {
+                "records": {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/ScheduleRecord" }
+                }
+              }
+            }
+          }
         },
+        {
+          "properties": {
+            "schedule": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/ScheduleRecord" }
+            }
+          }
+        }
+      ],
+      "properties": {
         "locomotives": {
           "type": "array",
           "items": { "type": "integer", "minimum": 0 }
@@ -227,7 +278,20 @@
     "WaitCondition": {
       "type": "object",
       "properties": {
-        "type": { "enum": [ "time", "inactivity", "full", "empty", "item_count", "circuit", "robots_inactive", "fluid_count", "passenger_present", "passenger_not_present" ] },
+        "type": {
+          "enum": [
+            "time",
+            "inactivity",
+            "full", "empty",
+            "item_count",
+            "circuit",
+            "robots_inactive",
+            "fluid_count",
+            "passenger_present",
+            "passenger_not_present",
+            "all_requests_satisfied"
+          ]
+        },
         "compare_type": { "enum": [ "and", "or" ]},
         "ticks": { "type": "integer", "minimum": 0 },
         "condition": { "$ref": "#/$defs/CircuitCondition" }
@@ -291,17 +355,40 @@
       "allowAdditionalProperties": false,
       "requiredProperties": [ "entity_id", "circuit_id" ]
     },
-
     "ItemRequest": {
-      "type": "object",
-      "propertyNames": {
-        "type": "string",
-        "pattern": "^[\\w_-]+$"
-      },
-      "patternProperties": {
-        "[\\w_-]+": { "type": "integer", "minimum": 0 }
-      },
-      "allowAdditionalProperties": false
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "items": {
+            "type": "object",
+            "properties": {
+              "in_inventory": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "inventory": {
+                      "type": "number"
+                    },
+                    "stack": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     },
 
     "ItemFilter": {
@@ -342,12 +429,22 @@
     "LogisticFilter": {
       "type": "object",
       "properties": {
-        "name": { "type": "string" },
-        "count": { "type": "integer", "minimum": 0 },
-        "index": { "type": "integer", "minimum": 1 }
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "request_from_buffers": {
+          "type": "boolean"
+        }
       },
-      "allowAdditionalProperties": false,
-      "requiredProperties": [ "name", "count", "index" ]
+      "allowAdditionalProperties": false
     },
 
     "SpeakerParameter": {
@@ -388,6 +485,26 @@
 
     "CircuitCondition": {
       "type": "object"
+    },
+    "Parameters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Parameter"
+      }
+    },
+    "Parameter": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [ "id", "number" ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
     }
   },
 

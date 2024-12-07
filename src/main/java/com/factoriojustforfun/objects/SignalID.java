@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
-@RequiredArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class SignalID {
-    @NonNull private String name;
-
+    private String name;
     private String backup;
-
-    @NonNull private Type type;
+    private Type type;
+    private Quality quality;
 
     public enum Type {
         @JsonProperty("item")
@@ -21,6 +21,12 @@ public class SignalID {
         FLUID,
 
         @JsonProperty("virtual")
-        VIRTUAL
+        VIRTUAL,
+
+        @JsonProperty("space-location")
+        SPACE_LOCATION,
+
+        @JsonProperty("recipe")
+        RECIPE
     }
 }

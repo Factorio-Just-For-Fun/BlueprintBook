@@ -1,10 +1,16 @@
 package com.factoriojustforfun.objects;
 
 import com.factoriojustforfun.utils.JsonUtils;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class Blueprint {
@@ -17,22 +23,20 @@ public class Blueprint {
 
     private List<Entity> entities;
 
-    private List<Tile> tiles;
-
     private List<Icon> icons;
-
-    private List<Schedule> schedules;
 
     private String description;
 
-    @JsonProperty("snap-to-grid")
-    private Position snapToGrid;
+    @JsonIgnore
+    private Map<String, JsonNode> unknownFields = new HashMap<>();
 
-    @JsonProperty("absolute-snapping")
-    private boolean absoluteGrid;
+    @JsonAnyGetter
+    public Map<String, JsonNode> otherFields() {
+        return unknownFields;
+    }
 
-    @JsonProperty("position-relative-to-grid")
-    private Position positionRelativeToGrid;
-
-    private final long version = JsonUtils.VERSION;
+    @JsonAnySetter
+    public void setOtherField(String name, JsonNode value) {
+        unknownFields.put(name, value);
+    }
 }

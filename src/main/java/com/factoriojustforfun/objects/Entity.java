@@ -1,114 +1,45 @@
 package com.factoriojustforfun.objects;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class Entity {
+    // General Fields
     @JsonProperty("entity_number")
     private int entityNumber;
-
     protected String name;
-
     private Position position;
+    private Quality quality;
 
-    private int direction;
-    private double orientation;
-
-    private Connection connections;
-    private List<Integer> neighbours;
-
+    // Used in
+    // Used for logistic generator
     @JsonProperty("control_behavior")
     private JsonNode controlBehavior;
 
-    private ItemRequest items;
-
-    private String recipe;
-
-
-    private int bar;
-
-    private Inventory inventory;
-
-    @JsonProperty("infinity_settings")
-    private InfinitySettings infinitySettings;
-
-    private Type type;
-
-    @JsonProperty("input_priority")
-    private Priority inputPriority;
-
-    @JsonProperty("output_priority")
-    private Priority outputPriority;
-
-    private String filter;
-
-    private List<ItemFilter> filters;
-
-    @JsonProperty("filter_mode")
-    private FilterMode filterMode;
-
-    @JsonProperty("override_stack_size")
-    private int overrideStackSize;
-
-    @JsonProperty("drop_position")
-    private Position dropPosition;
-
-    @JsonProperty("pickup_position")
-    private Position pickupPosition;
-
-    @JsonProperty("request_filters")
-    private List<LogisticFilter> requestFilters;
-
-    @JsonProperty("request_from_buffers")
-    private boolean requestFromBuffers;
-
-    private SpeakerParameter parameters;
-
-    @JsonProperty("alert_parameters")
-    private SpeakerAlertParameter alertParameters;
-
-    @JsonProperty("auto_launch")
-    private boolean autoLaunch;
-
-    private int variation;
-
+    // Used for train name fixer
     private Color color;
-
     private String station;
 
-    @JsonProperty("manual_trains_limit")
-    private int manualTrainsLimit;
+    // Unknown Fields
+    @JsonIgnore
+    private Map<String, JsonNode> unknownFields = new HashMap<>();
 
-    @JsonProperty("switch_state")
-    private boolean switchState;
-
-    private JsonNode tags;
-
-    // Undocumented, for power production
-
-    @JsonProperty("buffer_size")
-    private long bufferSize;
-    @JsonProperty("power_production")
-    private long powerProduction;
-    @JsonProperty("power_usage")
-    private long powerUsage;
-
-    public enum FilterMode {
-        @JsonProperty("whitelist") WHITELIST,
-        @JsonProperty("blacklist") BLACKLIST
+    @JsonAnyGetter
+    public Map<String, JsonNode> otherFields() {
+        return unknownFields;
     }
 
-    public enum Priority {
-        @JsonProperty("left") LEFT,
-        @JsonProperty("right") RIGHT
-    }
-
-    public enum Type {
-        @JsonProperty("input") INPUT,
-        @JsonProperty("output") OUTPUT
+    @JsonAnySetter
+    public void setOtherField(String name, JsonNode value) {
+        unknownFields.put(name, value);
     }
 }

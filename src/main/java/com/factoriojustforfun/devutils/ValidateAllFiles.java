@@ -45,6 +45,10 @@ public class ValidateAllFiles {
             OutputUnit unit = JsonUtils.SCHEMA.validate(node, OutputFormat.HIERARCHICAL);
             if (!unit.isValid()) {
                 System.out.println("Invalid file: " + file.getAbsolutePath());
+                System.out.println(unit);
+                System.out.println();
+                System.out.println();
+                System.out.println();
 
                 Files.write(new File("output", file.getPath().replaceAll("\\" + File.separatorChar, "-")).toPath(), unit.toString().getBytes());
                 return;
@@ -52,11 +56,11 @@ public class ValidateAllFiles {
 
             BlueprintBookEntry entry = JsonUtils.MAPPER.treeToValue(node, BlueprintBookEntry.class);
             if (entry instanceof BlueprintBookItem) {
-                System.out.println("Blueprint Book at " + file.getName() + " has name " + ((BlueprintBookItem) entry).getBlueprintBook().getLabel());
+                //System.out.println("Blueprint Book at " + file.getName() + " has name " + ((BlueprintBookItem) entry).getBlueprintBook().getLabel());
             } else if (entry instanceof BlueprintItem) {
-                System.out.println("Blueprint at " + file.getName() + " has name " + ((BlueprintItem) entry).getBlueprint().getLabel());
+                //System.out.println("Blueprint at " + file.getName() + " has name " + ((BlueprintItem) entry).getBlueprint().getLabel());
             } else {
-                System.out.println("Unknown object at " + file.getName() + " is " + entry);
+                //System.out.println("Unknown object at " + file.getName() + " is " + entry);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error in " + file.getAbsolutePath(), e);
