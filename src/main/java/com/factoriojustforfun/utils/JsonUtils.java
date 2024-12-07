@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.InputMismatchException;
+import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
@@ -43,7 +44,7 @@ public class JsonUtils {
 
     public static String encode(String string) throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        try (DeflaterOutputStream deflateStream = new DeflaterOutputStream(stream)) {
+        try (DeflaterOutputStream deflateStream = new DeflaterOutputStream(stream, new Deflater(9))) {
             deflateStream.write(string.getBytes(StandardCharsets.UTF_8));
         }
         return '0' + Base64.getEncoder().encodeToString(stream.toByteArray());

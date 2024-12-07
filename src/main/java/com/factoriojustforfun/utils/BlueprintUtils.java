@@ -40,34 +40,42 @@ public class BlueprintUtils {
 
         STATION_COLORS.put("low-density-structure", new Color(161, 125, 67, 127));
     }
-    public static void forEachBlueprint(BlueprintBookEntry entry, Consumer<Blueprint> consumer) {
+    public static void forEachBlueprint(BlueprintBookEntry entry, Consumer<BlueprintBookEntry> consumer) {
         if (entry instanceof BlueprintBookItem) {
             BlueprintBook book = ((BlueprintBookItem) entry).getBlueprintBook();
             book.getBlueprints().parallelStream().forEach(subentry -> forEachBlueprint(subentry, consumer));
-        } else if (entry instanceof BlueprintItem) {
-            Blueprint blueprint = ((BlueprintItem) entry).getBlueprint();
-            consumer.accept(blueprint);
         }
+        consumer.accept(entry);
     }
 
     public static void patch(BlueprintBookEntry entry) {
-        forEachBlueprint(entry, it -> patch(it, ""));
+        forEachBlueprint(entry, it -> applyFixes(it, ""));
     }
     public static void patch(BlueprintBookEntry entry, String tag) {
-        forEachBlueprint(entry, it -> patch(it, tag));
+        forEachBlueprint(entry, it -> applyFixes(it, tag));
     }
-    public static void patch(Blueprint blueprint, String tag) {
-        String description = blueprint.getDescription();
-        if (description == null || description.isEmpty()) description = "Unknown Blueprint."; // TODO Possibly add calculation
+    public static void applyFixes(BlueprintBookEntry entry, String tag) {
+        if (!(entry instanceof BlueprintBookItem) && ! (entry instanceof BlueprintItem)) return;
+        String description = (entry instanceof BlueprintBookItem) ? ((BlueprintBookItem) entry).getBlueprintBook().getDescription() : ((BlueprintItem) entry).getBlueprint().getDescription();
+
+        if (description == null || description.isEmpty()) description = ""; // TODO Possibly add calculation
         String newDescription = description.replaceAll("\\d{4}-\\d{2}-\\d{2} FJFF (Common )?Blueprints compiled by ((i_cant)|(Ashy(314)?)).\\nhttps://discord\\.gg/ehHEDDnPWA", "");
 
-        if (!newDescription.equals(description)) System.out.println("Blueprint " + blueprint.getLabel() + " had an outdated tag!");
-        newDescription += "\n\n" + tag;
+        if (!newDescription.equals(description)){
+            String label = (entry instanceof BlueprintBookItem) ? ((BlueprintBookItem) entry).getBlueprintBook().getLabel() : ((BlueprintItem) entry).getBlueprint().getLabel();
+            System.out.println("Blueprint " + label + " had an outdated tag!");
+        }
 
-        blueprint.setDescription(newDescription.trim());
+        newDescription = (newDescription + "\n\n" + tag).replaceAll("(\\r\\n|\\r|\\n){2,}", "\n\n").trim();
 
-        if (blueprint.getEntities() == null) return;
-        blueprint.getEntities().parallelStream().filter(it -> it.getName().equals("train-stop")).forEach(BlueprintUtils::fixStation);
+        if (entry instanceof BlueprintBookItem) ((BlueprintBookItem) entry).getBlueprintBook().setDescription(newDescription.trim());
+        else {
+            Blueprint blueprint = ((BlueprintItem) entry).getBlueprint();
+
+            blueprint.setDescription(newDescription.trim());
+            if (blueprint.getEntities() == null) return;
+            blueprint.getEntities().parallelStream().filter(it -> it.getName().equals("train-stop")).forEach(BlueprintUtils::fixStation);
+        }
     }
 
     public static void fixStation(Entity trainStop) {
