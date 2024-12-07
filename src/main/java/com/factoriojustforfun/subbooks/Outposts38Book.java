@@ -30,8 +30,12 @@ public class Outposts38Book {
 
         // Green Chips
         if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-mskitty.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-cfras5.txt"));
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-mskitty-balancers-unload.txt"));
+
+            if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-mskitty.txt"));
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-cfras5.txt"));
+            }
         }
 
         if (flags.contains(BookFlags.NORMAL_RECIPES)) {
@@ -40,10 +44,18 @@ public class Outposts38Book {
 
         // Other Chips
         if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-mskitty.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-kerza-start.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-kerza-extension.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "blue-chips-from-raw-mskitty.txt"));
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-mskitty-balancers-unload.txt"));
+
+            if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-mskitty.txt"));
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-kerza-start.txt"));
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-kerza-extension.txt"));
+            }
+
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "blue-chips-from-raw-mskitty-balancers-unload.txt"));
+            if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "blue-chips-from-raw-mskitty.txt"));
+            }
         }
 
         // Modules
@@ -63,7 +75,11 @@ public class Outposts38Book {
 
         if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "science-expensive", "all-science-from-raw-kerza.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "science-expensive", "low-density-structures-from-raw-mskitty.txt"));
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "science-expensive", "low-density-structures-from-raw-mskitty-balancers-unload.txt"));
+
+            if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
+                blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "science-expensive", "low-density-structures-from-raw-mskitty.txt"));
+            }
         }
 
 
