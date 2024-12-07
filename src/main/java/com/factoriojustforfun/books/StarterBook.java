@@ -70,7 +70,10 @@ public class StarterBook {
 
         BlueprintBook book = new BlueprintBook();
         book.setLabel("[FJFF] " + date);
-        book.setDescription("Starter Game Blueprints for the Factorio Just For Fun Server. Compiled, scripted, and filtered by Ashy.\nhttps://discord.gg/ehHEDDnPWA");
+        book.setDescription("""
+                Starter Game Blueprints for the Factorio Just For Fun Server. Compiled, scripted, and filtered by Ashy.
+                This book is designed for an expensive mode server and uses 3-8 trains. As such, many blueprints will be incorrectly ratioed on a normal recipes server.
+                https://discord.gg/ehHEDDnPWA""");
         book.setIcons(Arrays.asList(
                 new Icon(new SignalID("signal-F", SignalID.Type.VIRTUAL), 1),
                 new Icon(new SignalID("signal-J", SignalID.Type.VIRTUAL), 2),
@@ -95,6 +98,7 @@ public class StarterBook {
         BlueprintUtils.patch(bookItem, tag);
         return bookItem;
     }
+
     public static BlueprintBookItem generatePersonalBook() {
         BlueprintBook book = new BlueprintBook();
         book.setLabel("[Ashy314] Personal Book");
