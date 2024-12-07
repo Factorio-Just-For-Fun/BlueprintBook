@@ -22,7 +22,7 @@ import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
 public class JsonUtils {
-    public static final long VERSION = 281479275675648L;
+    public static final long VERSION = 281479278297089L;
     public static final File BLUEPRINT_DIRECTOY = new File("blueprints");
 
     public static final ObjectMapper MAPPER = new ObjectMapper();
