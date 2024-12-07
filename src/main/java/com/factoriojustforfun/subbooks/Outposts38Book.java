@@ -35,12 +35,12 @@ public class Outposts38Book {
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "blue-chips-from-raw-mskitty.txt"));
         }
 
-        blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-cfras5.txt"));
-        blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-cfras5-steel.txt"));
+        blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-productivity-from-raw-mskitty.txt"));
+        blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-speed-from-raw-mskitty.txt"));
         if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-cfras5.txt"));
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-cfras5-steel.txt"));
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-from-raw-kerza.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-productivity-from-raw-mskitty.txt"));
-            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "modules-expensive", "modules-speed-from-raw-mskitty.txt"));
         }
 
         blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "belts-mskitty-early.txt"));
