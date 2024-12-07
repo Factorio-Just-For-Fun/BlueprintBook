@@ -30,6 +30,7 @@ public class Outposts38Book {
 
         if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-mskitty.txt"));
+            blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "green-chips-from-raw-cfras5.txt"));
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "red-chips-from-raw-mskitty.txt"));
             blueprints.add(JsonUtils.fromFile("rail-designs-3-8", "intermediates-expensive", "blue-chips-from-raw-mskitty.txt"));
         }
