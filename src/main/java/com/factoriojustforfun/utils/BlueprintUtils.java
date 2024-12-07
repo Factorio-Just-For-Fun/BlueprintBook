@@ -16,29 +16,29 @@ public class BlueprintUtils {
     public static final Map<String, Color> STATION_COLORS = new HashMap<>();
 
     static {
-        STATION_COLORS.put("iron-ore", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("copper-ore", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("coal-ore", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("stone-ore", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("uranium-ore", new Color(0, 0, 0, 255));
+        STATION_COLORS.put("iron-ore", new Color(	70, 124, 155, 127));
+        STATION_COLORS.put("copper-ore", new Color(	238, 79, 58, 127));
+        STATION_COLORS.put("coal", new Color(0, 0, 0, 127));
+        STATION_COLORS.put("stone", new Color(	193, 143, 53, 127));
+        STATION_COLORS.put("uranium-ore", new Color(97, 205, 0, 127));
 
-        STATION_COLORS.put("crude-oil", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("water", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("sufuric-acid", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("petroleum-gas", new Color(0, 0, 0, 255));
+        STATION_COLORS.put("crude-oil", new Color(0, 0, 0, 127));
+        STATION_COLORS.put("water", new Color(0, 104, 184, 127));
+        STATION_COLORS.put("sufuric-acid", new Color(230, 194, 0, 127));
+        STATION_COLORS.put("petroleum-gas", new Color(92, 0, 92, 127));
 
-        STATION_COLORS.put("plastic-bar", new Color(0, 0, 0, 255));
+        STATION_COLORS.put("plastic-bar", new Color(251, 251, 251, 127));
 
-        STATION_COLORS.put("iron-plate", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("copper-plate", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("steel-plate", new Color(0, 0, 0, 255));
+        STATION_COLORS.put("iron-plate", new Color(176, 178, 176, 127));
+        STATION_COLORS.put("copper-plate", new Color(254, 98, 49, 127));
+        STATION_COLORS.put("steel-plate", new Color(224, 224, 212, 127));
 
-        STATION_COLORS.put("electronic-circuit", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("advanced-circuit", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("processing-unit", new Color(0, 0, 0, 255));
+        STATION_COLORS.put("electronic-circuit", new Color(44, 197, 0, 127));
+        STATION_COLORS.put("advanced-circuit", new Color(255, 12, 0, 127));
+        STATION_COLORS.put("processing-unit", new Color(0, 71, 255, 127));
 
-        STATION_COLORS.put("Trash", new Color(0, 0, 0, 255));
-        STATION_COLORS.put("Wall Supplies", new Color(0, 0, 0, 255));
+
+        STATION_COLORS.put("low-density-structure", new Color(161, 125, 67, 127));
     }
     public static void forEachBlueprint(BlueprintBookEntry entry, Consumer<Blueprint> consumer) {
         if (entry instanceof BlueprintBookItem) {
@@ -51,14 +51,19 @@ public class BlueprintUtils {
     }
 
     public static void patch(BlueprintBookEntry entry) {
-        forEachBlueprint(entry, BlueprintUtils::patch);
+        forEachBlueprint(entry, it -> patch(it, ""));
     }
-    public static void patch(Blueprint blueprint) {
+    public static void patch(BlueprintBookEntry entry, String tag) {
+        forEachBlueprint(entry, it -> patch(it, tag));
+    }
+    public static void patch(Blueprint blueprint, String tag) {
         String description = blueprint.getDescription();
         if (description == null || description.isEmpty()) description = "Unknown Blueprint."; // TODO Possibly add calculation
-        String newDescription = description.replaceAll("\\d{4}-\\d{2}-\\d{2} FJFF (Common )?Blueprints compiled by ((i_cant)|(Ashy)).\\nhttps://discord\\.gg/ehHEDDnPWA", "");
+        String newDescription = description.replaceAll("\\d{4}-\\d{2}-\\d{2} FJFF (Common )?Blueprints compiled by ((i_cant)|(Ashy(314)?)).\\nhttps://discord\\.gg/ehHEDDnPWA", "");
 
         if (!newDescription.equals(description)) System.out.println("Blueprint " + blueprint.getLabel() + " had an outdated tag!");
+        newDescription += "\n\n" + tag;
+
         blueprint.setDescription(newDescription.trim());
 
         if (blueprint.getEntities() == null) return;

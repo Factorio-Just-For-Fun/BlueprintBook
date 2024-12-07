@@ -21,7 +21,7 @@ public class Color {
     @JsonProperty("a")
     private double alpha;
 
-    public Color(int red, int blue, int green, int alpha) {
-        this(red / 255f, blue / 255f, green / 255f, alpha / 255f);
+    public Color(int red, int green, int blue, int alpha) {
+        this(red / 255f, green / 255f, blue / 255f, alpha / 255f);
     }
 }

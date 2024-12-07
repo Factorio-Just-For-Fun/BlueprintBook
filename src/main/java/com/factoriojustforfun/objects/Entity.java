@@ -16,7 +16,7 @@ public class Entity {
     private Position position;
 
     private int direction;
-    private int orientation;
+    private double orientation;
 
     private Connection connections;
     private List<Integer> neighbours;
