@@ -3,8 +3,9 @@ package com.factoriojustforfun.utils;
 import com.factoriojustforfun.objects.*;
 import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
 import com.factoriojustforfun.objects.bookentries.BlueprintItem;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class BlueprintUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger("BlueprintUtils");
     public static final Map<String, Color> STATION_COLORS = new HashMap<>();
 
     static {
@@ -37,9 +39,9 @@ public class BlueprintUtils {
         STATION_COLORS.put("advanced-circuit", new Color(255, 12, 0, 127));
         STATION_COLORS.put("processing-unit", new Color(0, 71, 255, 127));
 
-
         STATION_COLORS.put("low-density-structure", new Color(161, 125, 67, 127));
     }
+
     public static void forEachBlueprint(BlueprintBookEntry entry, Consumer<BlueprintBookEntry> consumer) {
         if (entry instanceof BlueprintBookItem) {
             BlueprintBook book = ((BlueprintBookItem) entry).getBlueprintBook();
@@ -55,32 +57,50 @@ public class BlueprintUtils {
         forEachBlueprint(entry, it -> applyFixes(it, tag));
     }
     public static void applyFixes(BlueprintBookEntry entry, String tag) {
-        if (!(entry instanceof BlueprintBookItem) && ! (entry instanceof BlueprintItem)) return;
+        if (!(entry instanceof BlueprintBookItem) && !(entry instanceof BlueprintItem)) {
+            LOGGER.debug("Skipping entry as not a blueprint or blueprint book");
+            return;
+        }
+
+        String label = (entry instanceof BlueprintBookItem) ? ((BlueprintBookItem) entry).getBlueprintBook().getLabel() : ((BlueprintItem) entry).getBlueprint().getLabel();
+        LOGGER.debug("Applying tag and fixes to {}", label);
+
         String description = (entry instanceof BlueprintBookItem) ? ((BlueprintBookItem) entry).getBlueprintBook().getDescription() : ((BlueprintItem) entry).getBlueprint().getDescription();
 
-        if (description == null || description.isEmpty()) description = ""; // TODO Possibly add calculation
+        if (description == null || description.isEmpty()) {
+            LOGGER.debug("Applying description as it does not exist or is empty.");
+            description = "";
+        } else {
+            LOGGER.debug("Found description {}", description);
+        }
+
         String newDescription = description.replaceAll("\\d{4}-\\d{2}-\\d{2} FJFF (Common )?Blueprints compiled by ((i_cant)|(Ashy(314)?)).\\nhttps://discord\\.gg/ehHEDDnPWA", "");
 
         if (!newDescription.equals(description)){
-            String label = (entry instanceof BlueprintBookItem) ? ((BlueprintBookItem) entry).getBlueprintBook().getLabel() : ((BlueprintItem) entry).getBlueprint().getLabel();
-            System.out.println("Blueprint " + label + " had an outdated tag!");
+            LOGGER.warn("Blueprint {} had an outdated tag! ({})", label, description);
         }
 
         newDescription = (newDescription + "\n\n" + tag).replaceAll("(\\r\\n|\\r|\\n){2,}", "\n\n").trim();
 
+        LOGGER.debug("Applying description.");
         if (entry instanceof BlueprintBookItem) ((BlueprintBookItem) entry).getBlueprintBook().setDescription(newDescription.trim());
         else {
             Blueprint blueprint = ((BlueprintItem) entry).getBlueprint();
 
             blueprint.setDescription(newDescription.trim());
             if (blueprint.getEntities() == null) return;
+
+            LOGGER.debug("Applying train stop fixes.");
             blueprint.getEntities().parallelStream().filter(it -> it.getName().equals("train-stop")).forEach(BlueprintUtils::fixStation);
         }
     }
 
     public static void fixStation(Entity trainStop) {
         String text = trainStop.getStation();
-        if (text == null || text.isEmpty()) text = "☭ Communism";
+        if (text == null || text.isEmpty()) {
+            LOGGER.debug("Applying template label to tran station.");
+            text = "☭ Communism";
+        }
 
         String newText = text
                 .replaceAll("\\[/?color(=((\\d{1,3},\\d{1,3},\\d{1,3})|(\\w+)))?]", "") // Remove colors
@@ -92,7 +112,7 @@ public class BlueprintUtils {
                 .replaceAll("\\[U]\\[virtual-signal=signal-red] Trash", "[U][virtual-signal=signal-red]Trash") // Fix trash trains
                 .trim();
 
-        if (!text.equals(newText)) System.out.println("Corrected train stop " + text + " to " + newText);
+        if (!text.equals(newText)) LOGGER.warn("Corrected train stop {} to {}", text, newText);
         trainStop.setStation(newText);
 
         for (Map.Entry<String, Color> entry : STATION_COLORS.entrySet()) {
@@ -104,6 +124,8 @@ public class BlueprintUtils {
     }
 
     public static Blueprint createMainBus(List<String> entries) {
+        LOGGER.debug("Creating Main Bus with entries {}", entries);
+
         Blueprint blueprint = new Blueprint();
         blueprint.setLabel("Main Bus [Ashy]");
 
@@ -113,31 +135,18 @@ public class BlueprintUtils {
             String entry = entries.get(index);
 
             Entity combinator = new Entity();
-            combinator.setName("constant-combinator");
+            combinator.setName("display-panel");
             combinator.setEntityNumber(index + 1);
             combinator.setPosition(new Position(index + Math.floorDiv(index, 4) * 2 + 0.5, 0.5));
 
-            ArrayNode filters = JsonUtils.MAPPER.createArrayNode();
-
-            String[] filtersRaw = entry.split(";");
-            for (int filterIndex = 0; filterIndex < filtersRaw.length; filterIndex++) {
-                String[] filter = filtersRaw[filterIndex].split(":");
-                ObjectNode signal = JsonUtils.MAPPER.createObjectNode();
-
-                signal.put("name", filter[filter.length - 1]);
-                signal.put("type", filter.length > 1 ? filter[0] : "item");
-
-                ObjectNode filterNode = JsonUtils.MAPPER.createObjectNode();
-                filterNode.set("signal", signal);
-                filterNode.put("count", 1);
-                filterNode.put("index", filterIndex + 1);
-
-                filters.add(filterNode);
+            ObjectNode iconNode = JsonUtils.MAPPER.createObjectNode();
+            String[] filter = entry.split(":");
+            iconNode.put("name", filter[filter.length - 1]);
+            if (filter.length > 1) {
+                iconNode.put("type", filter[0]);
             }
 
-            ObjectNode controlBehavior = JsonUtils.MAPPER.createObjectNode();
-            controlBehavior.set("filters", filters);
-            combinator.setControlBehavior(controlBehavior);
+            combinator.setOtherField("icon", iconNode);
 
             entities.add(combinator);
         }
@@ -147,6 +156,7 @@ public class BlueprintUtils {
     }
 
     public static List<BlueprintBookEntry> explode(List<BlueprintBookEntry> entries) {
+        LOGGER.debug("Exploding entries {}", entries);
         List<BlueprintBookEntry> explodedEntries = new ArrayList<>(entries.size());
         for (BlueprintBookEntry entry : entries) {
             if (entry instanceof BlueprintBookItem) explodedEntries.addAll(((BlueprintBookItem) entry).getBlueprintBook().getBlueprints());

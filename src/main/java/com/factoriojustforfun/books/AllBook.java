@@ -18,12 +18,12 @@ public class AllBook {
     public static BlueprintBook generateBook() {
         BlueprintBook book = new BlueprintBook();
         book.setLabel("[Ashy314] All Blueprints");
-        book.setDescription("All blueprints in the repository. Compiled by Ashy314, though not vetted for quality. Do not post in game blueprints.");
+        book.setDescription("All blueprints in the repository. Compiled by Ashy314. Do not post in game blueprints.");
         book.setIcons(Arrays.asList(
-                new Icon(new SignalID("signal-A", SignalID.Type.VIRTUAL), 3),
-                new Icon(new SignalID("signal-S", SignalID.Type.VIRTUAL), 3),
-                new Icon(new SignalID("signal-H", SignalID.Type.VIRTUAL), 3),
-                new Icon(new SignalID("signal-Y", SignalID.Type.VIRTUAL), 4)
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-A").build(), 1),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-S").build(), 2),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-H").build(), 3),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-Y").build(), 4)
         ));
 
         book.setBlueprints(loadDirectory(JsonUtils.BLUEPRINT_DIRECTOY));

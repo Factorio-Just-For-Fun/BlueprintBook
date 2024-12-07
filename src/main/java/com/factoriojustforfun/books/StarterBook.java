@@ -9,6 +9,8 @@ import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
 import com.factoriojustforfun.subbooks.*;
 import com.factoriojustforfun.utils.BlueprintUtils;
 import com.factoriojustforfun.utils.JsonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -16,51 +18,32 @@ import java.util.*;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
 public class StarterBook {
+    private static final Logger LOGGER = LoggerFactory.getLogger("StarterBook");
+
     public static void generateBook(BlueprintBook book, Set<BookFlags> flags) {
+        LOGGER.info("Creating Starter Book with flags {}", flags);
         List<BlueprintBookEntry> entries = book.getBlueprints() == null ? new ArrayList<>() : book.getBlueprints();
 
+        LOGGER.info("Loading core prints...");
         entries.add(JsonUtils.fromFile("balancers-raynquist.txt"));
-        entries.add(new BlueprintBookItem(RailsBook.generateBook(flags)));
-        entries.add(JsonUtils.fromFile("rail-misc", "construction-compendium.txt"));
+        entries.add(JsonUtils.fromFile("autorail.txt"));
+        entries.add(JsonUtils.fromFile("construction-compendium.txt"));
 
-        if (flags.contains(BookFlags.TRAINS_3_8)) {
-            entries.add(new BlueprintBookItem(Outposts38Book.generateBook(flags)));
+        LOGGER.info("Loading Custom Books...");
+        entries.add(new BlueprintBookItem(CommonBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(NauvisBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(VulcanusBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(GlebaBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
 
-            if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
-                entries.add(new BlueprintBookItem(Outposts38UnbeaconedBook.generateBook(flags)));
-            }
-        }
+        LOGGER.info("Loading auxiliary prints...");
+        entries.add(JsonUtils.fromFile("common/science/book-tileable.txt"));
+        entries.add(JsonUtils.fromFile("power/uranium/uranium-processing-kerza.txt"));
+        entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-khornar.txt"));
+        entries.add(JsonUtils.fromFile("power/fusion-1.txt"));
+        entries.add(JsonUtils.fromFile("power/starter-216.txt"));
 
-        entries.add(new BlueprintBookItem(MainBaseBook.generateBook(flags)));
-
-        if (flags.contains(BookFlags.NORMAL_RECIPES)) {
-            entries.add(JsonUtils.fromFile("belt", "science", "book-tileable.txt"));
-        }
-
-        if (flags.contains(BookFlags.EXPENSIVE_RECIPES)) {
-            entries.add(new BlueprintBookItem(ScienceExpensiveBook.generateBook(flags)));
-            entries.add(JsonUtils.fromFile("belt", "science-expensive", "early-tileable.txt"));
-        }
-
-        entries.add(new BlueprintBookItem(SolarBook.generateBook(flags)));
-        entries.add(new BlueprintBookItem(MilitaryBook.generateBook(flags)));
-        entries.add(JsonUtils.fromFile("power", "uranium-processing-kerza.txt"));
-        entries.add(JsonUtils.fromFile("power", "reactor-2.4gw-ferront.txt"));
-        entries.add(JsonUtils.fromFile("power", "reactor-tileable-khornar.txt"));
-        entries.add(JsonUtils.fromFile("power", "starter-216.txt"));
-
-        entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "mine-uranium.txt"));
-
-        if (flags.contains(BookFlags.TRAINS_3_8)) {
-            entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "mines-jrz.txt"));
-            entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "crude-mskitty.txt"));
-            entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "direct-kerza.txt"));
-        }
-        if (flags.contains(BookFlags.TRAINS_2_4)) {
-            entries.add(JsonUtils.fromFile("rail-designs-2-4", "mines", "mines-ashy.txt"));
-        }
-
-        entries.add(JsonUtils.fromFile("module-upgrader-pixelcort.txt"));
         entries.add(JsonUtils.fromFile("deconstruction-ashy.txt"));
 
         book.setBlueprints(entries);
@@ -69,6 +52,7 @@ public class StarterBook {
     public static BlueprintBookItem generateFJFFBook() {
         String date = ISO_LOCAL_DATE.format(LocalDate.now());
 
+        LOGGER.info("Creating FJFF book at {}", date);
         BlueprintBook book = new BlueprintBook();
         book.setLabel("[FJFF] " + date);
         book.setDescription("""
@@ -76,10 +60,10 @@ public class StarterBook {
                 This book is designed for an expensive mode server and uses 3-8 trains. As such, many blueprints will be incorrectly ratioed on a normal recipes server.
                 https://discord.gg/ehHEDDnPWA""");
         book.setIcons(Arrays.asList(
-                new Icon(new SignalID("signal-F", SignalID.Type.VIRTUAL), 1),
-                new Icon(new SignalID("signal-J", SignalID.Type.VIRTUAL), 2),
-                new Icon(new SignalID("signal-F", SignalID.Type.VIRTUAL), 3),
-                new Icon(new SignalID("signal-F", SignalID.Type.VIRTUAL), 4)
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-F").build(), 1),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-J").build(), 2),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-F").build(), 3),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-F").build(), 4)
         ));
 
         List<BlueprintBookEntry> entries = new ArrayList<>();
@@ -91,28 +75,33 @@ public class StarterBook {
         entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
         book.setBlueprints(entries);
 
-        generateBook(book, EnumSet.of(BookFlags.TRAINS_3_8, BookFlags.EXPENSIVE_RECIPES));
+        LOGGER.info("Loading entries");
+        generateBook(book, Collections.emptySet());
 
         BlueprintBookItem bookItem = new BlueprintBookItem(book);
-        String tag = date + " FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
 
+        LOGGER.info("Tagging prints");
+        String tag = date + " FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
         BlueprintUtils.patch(bookItem, tag);
         return bookItem;
     }
 
     public static BlueprintBookItem generatePersonalBook() {
+        LOGGER.info("Creating personal book");
         BlueprintBook book = new BlueprintBook();
         book.setLabel("[Ashy314] Personal Book");
         book.setDescription("Ashy314's Starter Blueprint Book");
         book.setIcons(Arrays.asList(
-                new Icon(new SignalID("signal-A", SignalID.Type.VIRTUAL), 1),
-                new Icon(new SignalID("signal-S", SignalID.Type.VIRTUAL), 2),
-                new Icon(new SignalID("signal-H", SignalID.Type.VIRTUAL), 3),
-                new Icon(new SignalID("signal-Y", SignalID.Type.VIRTUAL), 4)
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-A").build(), 1),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-S").build(), 2),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-H").build(), 3),
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-Y").build(), 4)
         ));
 
-        generateBook(book, EnumSet.of(BookFlags.TRAINS_3_8, BookFlags.TRAINS_2_4, BookFlags.NORMAL_RECIPES, BookFlags.EXPENSIVE_RECIPES, BookFlags.INCLUDE_ALTERNATES));
+        LOGGER.info("Loading entries");
+        generateBook(book, EnumSet.of(BookFlags.INCLUDE_ALTERNATES));
 
+        LOGGER.info("Tagging prints");
         BlueprintBookItem bookItem = new BlueprintBookItem(book);
         BlueprintUtils.patch(bookItem);
         return bookItem;
