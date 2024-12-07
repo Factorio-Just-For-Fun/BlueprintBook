@@ -6,14 +6,10 @@ import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.factoriojustforfun.objects.Icon;
 import com.factoriojustforfun.objects.SignalID;
 import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
-import com.factoriojustforfun.objects.bookentries.BlueprintItem;
 import com.factoriojustforfun.subbooks.*;
 import com.factoriojustforfun.utils.JsonUtils;
 
-import java.awt.print.Book;
-import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StarterBook {
     public static BlueprintBook generateBook(BlueprintBook book, Set<BookFlags> flags) {
