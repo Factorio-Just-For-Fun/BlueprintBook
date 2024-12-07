@@ -90,7 +90,7 @@ public class StarterBook {
         generateBook(book, EnumSet.of(BookFlags.TRAINS_3_8, BookFlags.EXPENSIVE_RECIPES));
 
         BlueprintBookItem bookItem = new BlueprintBookItem(book);
-        String tag = date + "FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
+        String tag = date + " FJFF Blueprints compiled by Ashy314.\nhttps://discord.gg/ehHEDDnPWA";
 
         BlueprintUtils.patch(bookItem, tag);
         return bookItem;
