@@ -1,0 +1,411 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "BlueprintBook": {
+      "properties": {
+        "item": { "const": "blueprint-book" },
+        "label": { "type": "string" },
+        "label_color": { "$ref": "#/$defs/Color" },
+        "icons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Icon" }
+        },
+        "description": { "type": "string" },
+        "blueprints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "index": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "\\d+"
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                ]
+              }
+            },
+            "oneOf": [
+              {
+                "properties": {
+                  "blueprint": { "$ref": "#/$defs/Blueprint" }
+                },
+                "required": [ "blueprint" ]
+              },
+              {
+                "properties": {
+                  "blueprint_book": { "$ref": "#/$defs/BlueprintBook" }
+                },
+                "required": [ "blueprint_book" ]
+              },
+              {
+                "properties": {
+                  "upgrade_planner": { "type": "object" }
+                },
+                "required": [ "upgrade_planner" ]
+              },
+              {
+                "properties": {
+                  "deconstruction_planner": { "type": "object" }
+                },
+                "required": [ "deconstruction_planner" ]
+              }
+            ],
+            "required": [ "index" ]
+          }
+        },
+        "active_index": { "type": "integer", "minimum": 0 },
+        "version": { "type": "integer" }
+      },
+      "additionalProperties": false,
+      "required": [ "item", "version" ]
+    },
+
+    "Blueprint": {
+      "properties": {
+        "item": { "const": "blueprint" },
+        "label": { "type": "string" },
+        "label_color": { "$ref": "#/$defs/Color" },
+        "entities": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Entity" }
+        },
+        "tiles": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Tile" }
+        },
+        "icons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Icon" }
+        },
+        "schedules": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Schedule" }
+        },
+        "description": { "type": "string" },
+        "snap-to-grid": { "$ref": "#/$defs/Position" },
+        "absolute-snapping": { "type": "boolean" },
+        "position-relative-to-grid": { "$ref": "#/$defs/Position" },
+        "version": { "type": "integer" }
+      },
+      "additionalProperties": false,
+      "required": [ "item", "version" ]
+    },
+
+    "Icon": {
+      "type": "object",
+      "properties": {
+        "index": { "type": "integer", "minimum": 1 },
+        "signal": { "$ref": "#/$defs/SignalID" }
+      },
+      "additionalProperties": false,
+      "required": [ "index", "signal" ]
+    },
+
+    "SignalID": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "backup": { "type": "string" },
+        "type": { "enum": [ "item", "fluid", "virtual" ] }
+      },
+      "additionalProperties": false,
+      "required": [ "type" ]
+    },
+
+    "Entity": {
+      "type": "object",
+      "properties": {
+        "entity_number": { "type": "integer", "minimum": 1 },
+        "name": { "type": "string" },
+        "position": { "$ref": "#/$defs/Position" },
+
+        "direction": { "type": "integer", "minimum": 0 },
+        "orientation": { "type": "number", "minimum": 0, "maximum": 1 },
+
+        "connections": { "$ref": "#/$defs/Connection" },
+        "neighbours": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 }
+        },
+        "control_behavior": { "$ref": "#/$defs/ControlBehavior" },
+
+        "items": { "$ref": "#/$defs/ItemRequest" },
+        "recipe": { "type": "string" },
+
+        "bar": { "type": "integer", "minimum": 0 },
+        "inventory": {
+          "oneOf": [ { "type": "null" }, { "$ref": "#/$defs/Inventory" } ]
+        },
+
+        "infinity_settings": { "$ref": "#/$defs/InfinitySettings" },
+
+        "type": { "enum": [ "input", "output" ] },
+
+        "input_priority": { "enum": [ "left", "right" ]},
+        "output_priority": { "enum": [ "left", "right" ]},
+        "filter": { "type": "string" },
+        "filters": { "type": "array", "items": { "$ref": "#/$defs/ItemFilter" }},
+        "filter_mode": { "enum": [ "whitelist", "blacklist" ]},
+
+        "override_stack_size": { "type": "integer", "minimum": 0 },
+        "drop_position": { "$ref": "#/$defs/Position" },
+        "pickup_position": { "$ref": "#/$defs/Position" },
+
+        "request_filters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/LogisticFilter" }
+        },
+        "request_from_buffers": { "type": "boolean" },
+
+        "parameters": { "$ref": "#/$defs/SpeakerParameter" },
+        "alert_parameters": { "$ref": "#/$defs/SpeakerAlertParameter" },
+
+        "auto_launch": { "type": "boolean" },
+
+        "variation": { "type": "integer" },
+
+        "color": { "$ref": "#/$defs/Color" },
+
+        "station": { "type": "string" },
+        "manual_trains_limit": { "type": "integer", "minimum": 0 },
+
+        "switch_state": { "type": "boolean"},
+
+        "tags": { "type": "object"}
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "entity_number", "name", "position" ]
+    },
+
+    "Inventory": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ItemFilter" }
+        },
+        "bar": { "type": "integer", "minimum": 0 }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "filters" ]
+    },
+
+    "Schedule": {
+      "type": "object",
+      "properties": {
+        "schedule": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ScheduleRecord" }
+        },
+        "locomotives": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 }
+        }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "schedule", "locomotives" ]
+    },
+
+    "ScheduleRecord": {
+      "type": "object",
+      "properties": {
+        "station": { "type": "string" },
+        "wait_conditions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/WaitCondition" }
+        }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "station", "wait_conditions" ]
+    },
+
+    "WaitCondition": {
+      "type": "object",
+      "properties": {
+        "type": { "enum": [ "time", "inactivity", "full", "empty", "item_count", "circuit", "robots_inactive", "fluid_count", "passenger_present", "passenger_not_present" ] },
+        "compare_type": { "enum": [ "and", "or" ]},
+        "ticks": { "type": "integer", "minimum": 0 },
+        "condition": { "$ref": "#/$defs/CircuitCondition" }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "type" ]
+    },
+
+    "Tile": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "position": { "$ref": "#/$defs/Position" }
+      },
+      "additionalProperties": false,
+      "required": [ "name", "position" ]
+    },
+
+    "Position": {
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      },
+      "additionalProperties": false,
+      "required": [ "x", "y" ]
+    },
+
+    "Connection": {
+      "type": "object",
+      "properties": {
+        "1": { "$ref": "#/$defs/ConnectionPoint" },
+        "2": { "$ref": "#/$defs/ConnectionPoint" },
+        "Cu0": { "type": "array" },
+        "Cu1": { "type": "array" }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "1", "2" ]
+    },
+
+    "ConnectionPoint": {
+      "type": "object",
+      "properties": {
+        "red": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ConnectionData" }
+        },
+        "green": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ConnectionData" }
+        }
+      },
+      "allowAdditionalProperties": false
+    },
+
+    "ConnectionData": {
+      "type": "object",
+      "properties": {
+        "entity_id": { "type": "number", "minimum": 0 },
+        "circuit_id": { "type": "number", "minimum": 0 }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "entity_id", "circuit_id" ]
+    },
+
+    "ItemRequest": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^[\\w_-]+$"
+      },
+      "patternProperties": {
+        "[\\w_-]+": { "type": "integer", "minimum": 0 }
+      },
+      "allowAdditionalProperties": false
+    },
+
+    "ItemFilter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "index": { "type": "integer", "minimum": 1 }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "name", "index" ]
+    },
+
+    "InfinitySettings": {
+      "type": "object",
+      "properties": {
+        "remove_unfiltered_items": { "type": "boolean" },
+        "filters": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/InfinityFilter" }
+        }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "type", "items" ]
+    },
+
+    "InfinityFilter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "mode": { "enum": [ "at-least", "at-most", "exactly" ] },
+        "index": { "type": "integer", "minimum": 1 }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "name", "count", "mode", "index" ]
+    },
+
+    "LogisticFilter": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "index": { "type": "integer", "minimum": 1 }
+      },
+      "allowAdditionalProperties": false,
+      "requiredProperties": [ "name", "count", "index" ]
+    },
+
+    "SpeakerParameter": {
+      "type": "object",
+      "properties": {
+        "playback_volume": { "type": "number" },
+        "playback_globally": { "type": "boolean" },
+        "allow_polyphony": { "type": "boolean" }
+      },
+      "allowAdditionalProperties": false
+    },
+
+    "SpeakerAlertParameter": {
+      "type": "object",
+      "properties": {
+        "show_alert": { "type": "boolean" },
+        "show_on_map": { "type": "boolean" },
+        "icon_signal_id": { "$ref": "#/$defs/SignalID" },
+        "alert_message": { "type": "string" }
+      },
+      "allowAdditionalProperties": false
+    },
+
+    "Color": {
+      "properties": {
+        "r": { "type": "number", "minimum": 0, "maximum": 1 },
+        "g": { "type": "number", "minimum": 0, "maximum": 1 },
+        "b": { "type": "number", "minimum": 0, "maximum": 1 },
+        "a": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false,
+      "required": [ "r", "g", "b", "a" ]
+    },
+
+    "ControlBehavior": {
+      "type": "object"
+    },
+
+    "CircuitCondition": {
+      "type": "object"
+    }
+  },
+
+  "type": "object",
+  "oneOf": [
+    {
+      "properties": {
+        "blueprint": { "$ref": "#/$defs/Blueprint" }
+      },
+      "required": [ "blueprint" ],
+      "additionalProperties": false
+    },
+    {
+      "properties": {
+        "blueprint_book": { "$ref": "#/$defs/BlueprintBook" }
+      },
+      "required": [ "blueprint_book" ],
+      "additionalProperties": false
+    }
+  ]
+}
