@@ -24,6 +24,7 @@ public class MilitaryBook {
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
 
         blueprints.add(JsonUtils.fromFile("biters", "wallmoeba-segment.txt"));
+        blueprints.add(JsonUtils.fromFile("biters", "wallmoeba-corner.txt"));
         blueprints.add(JsonUtils.fromFile("biters", "wallmoeba-segment-no-lasers.txt"));
         if (flags.contains(BookFlags.INCLUDE_ALTERNATES)) {
             blueprints.add(JsonUtils.fromFile("biters", "walls-pinko.txt"));

@@ -54,6 +54,7 @@ public class StarterBook {
         if (flags.contains(BookFlags.TRAINS_3_8)) {
             entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "mines-jrz.txt"));
             entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "crude-mskitty.txt"));
+            entries.add(JsonUtils.fromFile("rail-designs-3-8", "mines", "direct-kerza.txt"));
         }
         if (flags.contains(BookFlags.TRAINS_2_4)) {
             entries.add(JsonUtils.fromFile("rail-designs-2-4", "mines", "mines-ashy.txt"));
