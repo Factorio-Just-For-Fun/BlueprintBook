@@ -60,7 +60,7 @@ public class StarterBook {
         }
 
         entries.add(JsonUtils.fromFile("module-upgrader-pixelcort.txt"));
-        entries.add(JsonUtils.fromFile("deconstruction-ash.txt"));
+        entries.add(JsonUtils.fromFile("deconstruction-ashy.txt"));
 
         book.setBlueprints(entries);
     }
