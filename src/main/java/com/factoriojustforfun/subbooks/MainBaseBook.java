@@ -82,7 +82,7 @@ public class MainBaseBook {
         blueprints.add(JsonUtils.fromFile("belt", "science", "labs.txt"));
 
         blueprints.add(JsonUtils.fromFile("smelting", "kos-ash.txt"));
-        blueprints.add(JsonUtils.fromFile("smelting", "bus-upgradeable-mskitty.txt"));
+        blueprints.add(JsonUtils.fromFile("smelting", "bus-upgradeable-generic.txt"));
         blueprints.add(JsonUtils.fromFile("smelting", "steel-upgradeable-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("smelting", "side-loading-copper-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("smelting", "side-loading-iron-mskitty.txt"));
