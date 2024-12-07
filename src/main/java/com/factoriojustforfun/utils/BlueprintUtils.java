@@ -24,7 +24,7 @@ public class BlueprintUtils {
 
         STATION_COLORS.put("crude-oil", new Color(0, 0, 0, 127));
         STATION_COLORS.put("water", new Color(0, 104, 184, 127));
-        STATION_COLORS.put("sufuric-acid", new Color(230, 194, 0, 127));
+        STATION_COLORS.put("sulfuric-acid", new Color(230, 194, 0, 127));
         STATION_COLORS.put("petroleum-gas", new Color(92, 0, 92, 127));
 
         STATION_COLORS.put("plastic-bar", new Color(251, 251, 251, 127));
