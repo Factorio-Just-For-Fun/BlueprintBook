@@ -123,11 +123,11 @@ public class BlueprintUtils {
         }
     }
 
-    public static Blueprint createMainBus(List<String> entries) {
+    public static Blueprint createMainBus(List<String> entries, String name) {
         LOGGER.debug("Creating Main Bus with entries {}", entries);
 
         Blueprint blueprint = new Blueprint();
-        blueprint.setLabel("Main Bus [Ashy]");
+        blueprint.setLabel(name);
 
         List<Entity> entities = new ArrayList<>();
 

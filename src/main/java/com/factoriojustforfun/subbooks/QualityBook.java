@@ -5,7 +5,6 @@ import com.factoriojustforfun.objects.BlueprintBook;
 import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.factoriojustforfun.objects.Icon;
 import com.factoriojustforfun.objects.SignalID;
-import com.factoriojustforfun.objects.bookentries.BlueprintItem;
 import com.factoriojustforfun.utils.BlueprintUtils;
 import com.factoriojustforfun.utils.JsonUtils;
 
@@ -14,23 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class FulgoraBook {
-    public static final List<String> MAIN_BUS = Arrays.asList(
-            "",
-            "",
-            "",
-            ""
-    );
-
+public class QualityBook {
     public static BlueprintBook generateBook(Set<BookFlags> flags) {
         BlueprintBook book = new BlueprintBook();
-        book.setLabel("Fulgora");
+        book.setLabel("Quality");
         book.setIcons(List.of(
-                new Icon(SignalID.builder().type(SignalID.Type.SPACE_LOCATION).name("fulgora").build(), 1)
+                new Icon(SignalID.builder().type(SignalID.Type.VIRTUAL).name("signal-any-quality").build(), 1)
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
-        // blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS)));
         blueprints.add(JsonUtils.fromFile("wip.txt"));
 
         book.setBlueprints(BlueprintUtils.explode(blueprints));

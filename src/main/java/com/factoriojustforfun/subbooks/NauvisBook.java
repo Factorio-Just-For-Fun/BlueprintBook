@@ -82,13 +82,14 @@ public class NauvisBook {
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
-        blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS)));
+        blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS, "Main Bus [Nauvis]")));
         blueprints.add(JsonUtils.fromFile("nauvis/biolab.txt"));
         blueprints.add(JsonUtils.fromFile("malls/nauvis-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("malls/belts.txt"));
         blueprints.add(JsonUtils.fromFile("malls/bot-factory.txt"));
 
         blueprints.add(JsonUtils.fromFile("nauvis/refinery-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("nauvis/space-platform-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/solid-fuel-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/plastic-double-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/sulfur-sulfuric-combined-mskitty.txt"));

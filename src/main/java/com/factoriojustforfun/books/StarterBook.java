@@ -36,6 +36,8 @@ public class StarterBook {
         entries.add(new BlueprintBookItem(GlebaBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(QualityBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(SpacePlatformsBook.generateBook(flags)));
 
         LOGGER.info("Loading auxiliary prints...");
         entries.add(JsonUtils.fromFile("common/science/book-tileable.txt"));
@@ -67,12 +69,12 @@ public class StarterBook {
         ));
 
         List<BlueprintBookEntry> entries = new ArrayList<>();
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
-        entries.add(JsonUtils.fromFile("do-not-take-these-ash.txt"));
+        entries.add(JsonUtils.fromFile("do-not-take-these-ashy.txt"));
+        entries.add(JsonUtils.fromFile("wip.txt"));
+        entries.add(JsonUtils.fromFile("do-not-take-these-ashy.txt"));
+        entries.add(JsonUtils.fromFile("wip.txt"));
+        entries.add(JsonUtils.fromFile("do-not-take-these-ashy.txt"));
+        entries.add(JsonUtils.fromFile("wip.txt"));
         book.setBlueprints(entries);
 
         LOGGER.info("Loading entries");

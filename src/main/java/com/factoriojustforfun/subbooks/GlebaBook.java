@@ -30,7 +30,7 @@ public class GlebaBook {
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
-        blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS)));
+        blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS, "Main Bus [Gleba]")));
         blueprints.add(JsonUtils.fromFile("gleba/mall.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/ore.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bioflux.txt"));
