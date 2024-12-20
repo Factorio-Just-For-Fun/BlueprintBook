@@ -23,8 +23,10 @@ public class QualityBook {
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(JsonUtils.fromFile("wip.txt"));
-
-        book.setBlueprints(BlueprintUtils.explode(blueprints));
+        blueprints.add(JsonUtils.fromFile("quality/captive-biters-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("quality/rootwyrm.txt"));
+        blueprints.add(JsonUtils.fromFile("quality/upcycler.txt"));
+        book.setBlueprints(blueprints);
         return book;
     }
 }

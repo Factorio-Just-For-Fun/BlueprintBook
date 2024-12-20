@@ -27,6 +27,9 @@ public class SignalID {
         SPACE_LOCATION,
 
         @JsonProperty("recipe")
-        RECIPE
+        RECIPE,
+
+        @JsonProperty("quality")
+        QUALITY
     }
 }

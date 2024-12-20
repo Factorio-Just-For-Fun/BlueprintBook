@@ -15,12 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 public class GlebaBook {
-    public static final List<String> MAIN_BUS = Arrays.asList(
-            "",
-            "",
-            "",
-            ""
-    );
 
     public static BlueprintBook generateBook(Set<BookFlags> flags) {
         BlueprintBook book = new BlueprintBook();
@@ -30,7 +24,7 @@ public class GlebaBook {
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
-        blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS, "Main Bus [Gleba]")));
+        blueprints.add(JsonUtils.fromFile("gleba/bus-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/mall.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/ore.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bioflux.txt"));
@@ -44,7 +38,7 @@ public class GlebaBook {
         blueprints.add(JsonUtils.fromFile("gleba/rocket-fuel.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/science-agri.txt"));
 
-        book.setBlueprints(BlueprintUtils.explode(blueprints));
+        book.setBlueprints(blueprints);
         return book;
     }
 }

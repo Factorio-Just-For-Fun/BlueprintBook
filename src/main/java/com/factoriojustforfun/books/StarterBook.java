@@ -31,13 +31,13 @@ public class StarterBook {
 
         LOGGER.info("Loading Custom Books...");
         entries.add(new BlueprintBookItem(CommonBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(QualityBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(SpacePlatformsBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(NauvisBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(VulcanusBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(GlebaBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
-        entries.add(new BlueprintBookItem(QualityBook.generateBook(flags)));
-        entries.add(new BlueprintBookItem(SpacePlatformsBook.generateBook(flags)));
 
         LOGGER.info("Loading auxiliary prints...");
         entries.add(JsonUtils.fromFile("common/science/book-tileable.txt"));

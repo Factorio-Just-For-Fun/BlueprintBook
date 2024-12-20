@@ -7,10 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class BlueprintUtils {
@@ -164,5 +161,21 @@ public class BlueprintUtils {
         }
 
         return explodedEntries;
+    }
+
+    public static List<BlueprintBookEntry> fitOrderToIndices(List<BlueprintBookEntry> entries) {
+        List<BlueprintBookEntry> result = new ArrayList<>();
+        for (BlueprintBookEntry entry : entries) {
+            while (result.size() < entry.getIndex() + 1) result.add(null);
+            result.set(entry.getIndex(), entry);
+        }
+        return result;
+    }
+
+    public static void fitIndicesToOrder(List<BlueprintBookEntry> entries) {
+        for (int i = 0; i < entries.size(); i++) {
+            BlueprintBookEntry entry = entries.get(i);
+            if (entry != null) entry.setIndex(i);
+        }
     }
 }

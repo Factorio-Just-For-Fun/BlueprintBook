@@ -19,7 +19,7 @@ public class CommonBook {
         BlueprintBook book = new BlueprintBook();
         book.setLabel("Common Book");
         book.setIcons(List.of(
-                new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("iron-gear").build(), 1)
+                new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("iron-gear-wheel").build(), 1)
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
@@ -31,9 +31,10 @@ public class CommonBook {
         blueprints.add(JsonUtils.fromFile("common/fluids/rocket-fuel-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("ships/launchpad.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/foundry/ore-to-plates.txt"));
+        blueprints.add(JsonUtils.fromFile("decoration/displays-nightmare.txt"));
         // blueprints.add(JsonUtils.fromFile("common/smelting/foundry/fluid-to-plates-kerza.txt"));
 
-        book.setBlueprints(BlueprintUtils.explode(blueprints));
+        book.setBlueprints(blueprints);
         return book;
     }
 }

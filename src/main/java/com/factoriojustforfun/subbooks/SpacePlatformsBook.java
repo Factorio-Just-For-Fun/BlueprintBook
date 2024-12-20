@@ -18,12 +18,12 @@ public class SpacePlatformsBook {
 
     public static BlueprintBook generateBook(Set<BookFlags> flags) {
         BlueprintBook book = new BlueprintBook();
-        book.setLabel("Vulcanus");
+        book.setLabel("Space Platforms");
         book.setIcons(List.of(
                 new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("space-platform-starter-pack").build(), 1),
                 new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("asteroid-collector").build(), 2),
                 new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("crusher").build(), 3),
-                new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("space-platform").build(), 4)
+                new Icon(SignalID.builder().type(SignalID.Type.ITEM).name("space-platform-foundation").build(), 4)
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
@@ -32,10 +32,10 @@ public class SpacePlatformsBook {
         blueprints.add(JsonUtils.fromFile("ships/hauler/early.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/early-aquilo.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/spoilable-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("ships/hauler/close-planets-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("ships/stationary/calcite-madkatz.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/hauler/sugar-glider-nightmare.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/hauler/gleba-biter-eggs-kerza.txt"));
 
-        book.setBlueprints(BlueprintUtils.explode(blueprints));
+        book.setBlueprints(blueprints);
         return book;
     }
 }

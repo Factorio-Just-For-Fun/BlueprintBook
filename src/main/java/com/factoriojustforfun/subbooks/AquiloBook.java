@@ -30,7 +30,7 @@ public class AquiloBook {
         blueprints.add(JsonUtils.fromFile("aquilo/quantum-processor-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("aquilo/science-cryo-kerza.txt"));
 
-        book.setBlueprints(BlueprintUtils.explode(blueprints));
+        book.setBlueprints(blueprints);
         return book;
     }
 }
