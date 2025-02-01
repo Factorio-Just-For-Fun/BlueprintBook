@@ -25,18 +25,20 @@ public class GlebaBook {
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(JsonUtils.fromFile("gleba/bus-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/mall.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/ore.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/bioflux.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/jelly.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/ore-iron-raw.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/ore-copper-raw.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/yumako-mash.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/plastic.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/lubricant.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/plastic-bioflux-yumako.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/lubricant-bioflux-jellynut.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/sulfur.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/carbon.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber-yumako-carbon.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/science-agri-raw.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/rocket-fuel.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/science-agri.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/bioflux.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/jelly.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/mall.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/power.txt"));
 
         book.setBlueprints(blueprints);
         return book;

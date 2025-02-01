@@ -23,7 +23,9 @@ public class CommonBook {
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
+        blueprints.add(JsonUtils.fromFile("common/intermediates/green-chips-em.txt"));
         blueprints.add(JsonUtils.fromFile("common/intermediates/green-chips-fluid-em.txt"));
+        blueprints.add(JsonUtils.fromFile("common/intermediates/red-chips-em.txt"));
         blueprints.add(JsonUtils.fromFile("common/intermediates/red-chips-fluid-em.txt"));
         blueprints.add(JsonUtils.fromFile("common/intermediates/blue-chips-em.txt"));
         blueprints.add(JsonUtils.fromFile("common/intermediates/lds-kerza.txt"));

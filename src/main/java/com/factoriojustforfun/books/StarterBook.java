@@ -26,7 +26,7 @@ public class StarterBook {
 
         LOGGER.info("Loading core prints...");
         entries.add(JsonUtils.fromFile("balancers-raynquist.txt"));
-        entries.add(JsonUtils.fromFile("autorail.txt"));
+        entries.add(JsonUtils.fromFile("3-8-rail-network.txt"));
         entries.add(JsonUtils.fromFile("construction-compendium.txt"));
 
         LOGGER.info("Loading Custom Books...");
@@ -41,9 +41,12 @@ public class StarterBook {
 
         LOGGER.info("Loading auxiliary prints...");
         entries.add(JsonUtils.fromFile("common/science/book-tileable.txt"));
+        entries.add(JsonUtils.fromFile("malls/modules-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/uranium-processing-kerza.txt"));
-        entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-khornar.txt"));
-        entries.add(JsonUtils.fromFile("power/fusion-1.txt"));
+        entries.add(JsonUtils.fromFile("power/uranium/kovarex-kerza.txt"));
+        entries.add(JsonUtils.fromFile("power/uranium/nukes-kerza.txt"));
+        entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-drsupergood.txt"));
+        entries.add(JsonUtils.fromFile("power/fusion-tileable.txt"));
         entries.add(JsonUtils.fromFile("power/starter-216.txt"));
 
         entries.add(JsonUtils.fromFile("deconstruction-ashy.txt"));

@@ -22,7 +22,7 @@ public class NauvisBook {
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(JsonUtils.fromFile("nauvis/bus-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("nauvis/biolab.txt"));
-        blueprints.add(JsonUtils.fromFile("malls/nauvis-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("nauvis/mall-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("malls/belts.txt"));
         blueprints.add(JsonUtils.fromFile("malls/bot-factory.txt"));
 

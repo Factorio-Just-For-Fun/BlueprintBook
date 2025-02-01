@@ -26,6 +26,7 @@ public class QualityBook {
         blueprints.add(JsonUtils.fromFile("quality/captive-biters-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("quality/rootwyrm.txt"));
         blueprints.add(JsonUtils.fromFile("quality/upcycler.txt"));
+        blueprints.add(JsonUtils.fromFile("quality/tileable-assembler-kerza.txt"));
         book.setBlueprints(blueprints);
         return book;
     }
