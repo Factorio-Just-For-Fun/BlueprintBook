@@ -34,6 +34,7 @@ public class SpacePlatformsBook {
         blueprints.add(JsonUtils.fromFile("ships/hauler/sugar-glider-nightmare.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/cycling-cargo-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/gleba-biter-eggs-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/shattered/kerza.txt"));
 
         book.setBlueprints(blueprints);
         return book;
