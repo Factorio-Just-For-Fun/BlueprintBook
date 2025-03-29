@@ -26,16 +26,15 @@ public class NauvisBook {
         blueprints.add(JsonUtils.fromFile("malls/belts.txt"));
         blueprints.add(JsonUtils.fromFile("malls/bot-factory.txt"));
 
-        blueprints.add(JsonUtils.fromFile("nauvis/refinery-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("nauvis/refinery-fox.txt"));
+        blueprints.add(JsonUtils.fromFile("nauvis/space-platform-dedicated.txt"));
         blueprints.add(JsonUtils.fromFile("nauvis/space-platform-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("common/fluids/solid-fuel-mskitty.txt"));
-        blueprints.add(JsonUtils.fromFile("common/fluids/plastic-double-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/sulfur-sulfuric-combined-mskitty.txt"));
 
         blueprints.add(JsonUtils.fromFile("common/smelting/steel-furnaces/bus-upgradeable-generic.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/steel-furnaces/steel-upgradeable-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/electric-furnaces/side-loading-mskitty.txt"));
-        blueprints.add(JsonUtils.fromFile("common/smelting/electric-furnaces/steel-mskitty.txt"));
+        // blueprints.add(JsonUtils.fromFile("common/smelting/electric-furnaces/steel-mskitty.txt"));
 
         book.setBlueprints(blueprints);
         return book;

@@ -26,8 +26,8 @@ public class StarterBook {
 
         LOGGER.info("Loading core prints...");
         entries.add(JsonUtils.fromFile("balancers-raynquist.txt"));
-        entries.add(JsonUtils.fromFile("3-8-rail-network.txt"));
-        entries.add(JsonUtils.fromFile("construction-compendium.txt"));
+        entries.add(JsonUtils.fromFile("3-8-rail-network-trimmed.txt"));
+        entries.add(JsonUtils.fromFile("construction-compendium-trimmed.txt"));
 
         LOGGER.info("Loading Custom Books...");
         entries.add(new BlueprintBookItem(CommonBook.generateBook(flags)));
@@ -40,7 +40,7 @@ public class StarterBook {
         entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
 
         LOGGER.info("Loading auxiliary prints...");
-        entries.add(JsonUtils.fromFile("common/science/book-tileable.txt"));
+        entries.add(new BlueprintBookItem(ScienceBook.generateBook(flags)));
         entries.add(JsonUtils.fromFile("malls/modules-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/uranium-processing-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/kovarex-kerza.txt"));

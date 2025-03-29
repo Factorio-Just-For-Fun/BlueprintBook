@@ -28,12 +28,14 @@ public class SpacePlatformsBook {
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(JsonUtils.fromFile("ships/stationary/science-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/hauler/space-sci-late.txt"));
         blueprints.add(JsonUtils.fromFile("ships/stationary/calcite-madkatz.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/calcite-flyer.txt"));
-        blueprints.add(JsonUtils.fromFile("ships/hauler/spoilable-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("ships/hauler/sugar-glider-nightmare.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/cycling-cargo-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/hauler/spoilable-kerza.txt"));
+        // blueprints.add(JsonUtils.fromFile("ships/hauler/sugar-glider-nightmare.txt"));
         blueprints.add(JsonUtils.fromFile("ships/hauler/gleba-biter-eggs-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("ships/hauler/aquilo-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("ships/shattered/kerza.txt"));
 
         book.setBlueprints(blueprints);

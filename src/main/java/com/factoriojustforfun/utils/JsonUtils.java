@@ -29,7 +29,7 @@ import java.util.zip.InflaterInputStream;
 public class JsonUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger("JSON Utils");
 
-    public static final long VERSION = 281479278297089L;
+    public static final long VERSION = 562949956173828L;
     public static final File BLUEPRINT_DIRECTOY = new File("blueprints");
 
     public static final ObjectMapper MAPPER = new ObjectMapper();

@@ -27,7 +27,7 @@ public class BookBuilderDev {
         LOGGER.info("Copying to clipboard...");
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection selection = new StringSelection(text);
-        clipboard.setContents(selection, null);
+        clipboard.setContents(selection, selection);
 
         LOGGER.info("Writing to File...");
         File outputFile = new File("output.txt");

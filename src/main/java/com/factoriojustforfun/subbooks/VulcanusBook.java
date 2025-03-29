@@ -62,11 +62,13 @@ public class VulcanusBook {
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS, "Main Bus [Vulcanus]")));
         blueprints.add(JsonUtils.fromFile("vulcanus/refinery-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("vulcanus/lava-breakdown.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/molten-iron-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/tungsten-carbide-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/tungsten-plate-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/science-metallurgic-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/belts-fluid-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("military/worm-mine.txt"));
 
         book.setBlueprints(blueprints);
         return book;
