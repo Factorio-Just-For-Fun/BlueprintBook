@@ -36,8 +36,10 @@ public class StarterBook {
         entries.add(new BlueprintBookItem(NauvisBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(VulcanusBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(GlebaBook.generateBook(flags)));
-        entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
-        entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
+        // entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
+        // entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
+        entries.add(JsonUtils.fromFile("fulgora/compendium-kerza.txt"));
+        entries.add(JsonUtils.fromFile("aquilo/compendium-kerza.txt"));
 
         LOGGER.info("Loading auxiliary prints...");
         entries.add(new BlueprintBookItem(ScienceBook.generateBook(flags)));
@@ -45,11 +47,12 @@ public class StarterBook {
         entries.add(JsonUtils.fromFile("power/uranium/uranium-processing-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/kovarex-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/nukes-kerza.txt"));
-        entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-drsupergood.txt"));
+        entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-new.txt"));
         entries.add(JsonUtils.fromFile("power/fusion-tileable.txt"));
         entries.add(JsonUtils.fromFile("power/starter-216.txt"));
 
         entries.add(JsonUtils.fromFile("deconstruction-ashy.txt"));
+        entries.add(JsonUtils.fromFile("quality-upgraders.txt"));
 
         book.setBlueprints(entries);
     }

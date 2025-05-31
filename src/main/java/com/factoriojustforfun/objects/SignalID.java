@@ -30,6 +30,9 @@ public class SignalID {
         RECIPE,
 
         @JsonProperty("quality")
-        QUALITY
+        QUALITY,
+
+        @JsonProperty("entity")
+        ENTITY
     }
 }

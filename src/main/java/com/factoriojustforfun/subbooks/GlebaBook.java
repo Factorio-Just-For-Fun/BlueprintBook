@@ -35,7 +35,7 @@ public class GlebaBook {
 
 
         blueprints.add(JsonUtils.fromFile("gleba/ore-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("common/smelting/foundry/melting-two-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("common/smelting/foundry/smelting-two-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/foundry/casting-plates-all-kerza.txt"));
 
         blueprints.add(JsonUtils.fromFile("gleba/power-burner-kerza.txt"));
@@ -61,6 +61,8 @@ public class GlebaBook {
         blueprints.add(JsonUtils.fromFile("gleba/mall-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/mall-nauvis-modified-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/explosives-tileable-rockets-kerza.txt"));
+
+        blueprints.add(JsonUtils.fromFile("military/gleba.txt"));
 
         book.setBlueprints(blueprints);
         return book;

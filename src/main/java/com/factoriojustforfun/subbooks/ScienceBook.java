@@ -26,8 +26,8 @@ public class ScienceBook {
                 ((BlueprintBookItem) JsonUtils.fromFile("common/science/book-tileable.txt"))
                         .getBlueprintBook().getBlueprints());
         blueprints = BlueprintUtils.fitOrderToIndices(blueprints);
-        blueprints.add(null);
-        blueprints.add(null);
+        blueprints.add(JsonUtils.fromFile("common/science/lab-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("common/science/biolab-kerza.txt"));
         blueprints.add(null);
 
 

@@ -21,7 +21,6 @@ public class NauvisBook {
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(JsonUtils.fromFile("nauvis/bus-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("nauvis/biolab.txt"));
         blueprints.add(JsonUtils.fromFile("nauvis/mall-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("malls/belts.txt"));
         blueprints.add(JsonUtils.fromFile("malls/bot-factory.txt"));
@@ -35,6 +34,11 @@ public class NauvisBook {
         blueprints.add(JsonUtils.fromFile("common/smelting/steel-furnaces/steel-upgradeable-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/electric-furnaces/side-loading-mskitty.txt"));
         // blueprints.add(JsonUtils.fromFile("common/smelting/electric-furnaces/steel-mskitty.txt"));
+
+        blueprints.add(JsonUtils.fromFile("military/wallmoeba-segment.txt"));
+        blueprints.add(JsonUtils.fromFile("military/wallmoeba-corner.txt"));
+        blueprints.add(JsonUtils.fromFile("military/biter-egg-silo-3.txt"));
+        blueprints.add(JsonUtils.fromFile("military/biter-egg-silo-mass.txt"));
 
         book.setBlueprints(blueprints);
         return book;
