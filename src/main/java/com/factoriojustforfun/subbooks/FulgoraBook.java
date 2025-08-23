@@ -25,13 +25,13 @@ public class FulgoraBook {
         List<BlueprintBookEntry> blueprints = new ArrayList<>(
                 ((BlueprintBookItem) JsonUtils.fromFile("fulgora/compendium-kerza.txt"))
                         .getBlueprintBook().getBlueprints());
-        blueprints = BlueprintUtils.fitOrderToIndices(blueprints);
-        blueprints.add(JsonUtils.fromFile("fulgora/scrap.txt"));
-        blueprints.addAll(((BlueprintBookItem) JsonUtils.fromFile("fulgora/filters-nightmare-kerza.txt"))
-                .getBlueprintBook().getBlueprints());
-        blueprints.add(null);
-        blueprints.add(null);
-        blueprints.add(null);
+        //blueprints = BlueprintUtils.fitOrderToIndices(blueprints);
+        //blueprints.add(JsonUtils.fromFile("fulgora/scrap.txt"));
+        //blueprints.addAll(((BlueprintBookItem) JsonUtils.fromFile("fulgora/filters-nightmare-kerza.txt"))
+        //        .getBlueprintBook().getBlueprints());
+        //blueprints.add(null);
+        //blueprints.add(null);
+        //blueprints.add(null);
         BlueprintUtils.fitIndicesToOrder(blueprints);
 
         book.setBlueprints(blueprints);

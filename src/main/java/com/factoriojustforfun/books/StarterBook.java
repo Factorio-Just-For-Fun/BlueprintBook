@@ -36,10 +36,10 @@ public class StarterBook {
         entries.add(new BlueprintBookItem(NauvisBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(VulcanusBook.generateBook(flags)));
         entries.add(new BlueprintBookItem(GlebaBook.generateBook(flags)));
-        // entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
-        // entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
-        entries.add(JsonUtils.fromFile("fulgora/compendium-kerza.txt"));
-        entries.add(JsonUtils.fromFile("aquilo/compendium-kerza.txt"));
+        entries.add(new BlueprintBookItem(FulgoraBook.generateBook(flags)));
+        entries.add(new BlueprintBookItem(AquiloBook.generateBook(flags)));
+        // entries.add(JsonUtils.fromFile("fulgora/compendium-kerza.txt"));
+        // entries.add(JsonUtils.fromFile("aquilo/compendium-kerza.txt"));
 
         LOGGER.info("Loading auxiliary prints...");
         entries.add(new BlueprintBookItem(ScienceBook.generateBook(flags)));

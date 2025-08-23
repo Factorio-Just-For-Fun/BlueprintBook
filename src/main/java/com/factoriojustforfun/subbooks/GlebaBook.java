@@ -24,6 +24,7 @@ public class GlebaBook {
         ));
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
+        blueprints.add(JsonUtils.fromFile("gleba/starter.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bus-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bus-ending-kerza.txt"));
 
