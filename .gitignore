@@ -40,3 +40,4 @@ bin/
 
 ### Project ###
 output.txt
+*.sh
