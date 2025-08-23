@@ -46,7 +46,9 @@ public class GlebaBook {
         blueprints.add(JsonUtils.fromFile("gleba/lubricant-bioflux-jellynut.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/sulfuric-acid-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber-tileable-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber-upcycling-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/science-agri-tileable-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("gleba/overgrowth-kerza.txt"));
 
 
 
