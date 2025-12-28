@@ -28,6 +28,7 @@ public class NauvisBook {
         blueprints.add(JsonUtils.fromFile("nauvis/refinery-fox.txt"));
         blueprints.add(JsonUtils.fromFile("nauvis/space-platform-dedicated.txt"));
         blueprints.add(JsonUtils.fromFile("nauvis/space-platform-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("nauvis/landing-pad.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/sulfur-sulfuric-combined-mskitty.txt"));
 
         blueprints.add(JsonUtils.fromFile("common/smelting/steel-furnaces/bus-upgradeable-generic.txt"));

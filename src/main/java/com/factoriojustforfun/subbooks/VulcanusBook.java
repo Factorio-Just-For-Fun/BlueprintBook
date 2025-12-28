@@ -69,6 +69,7 @@ public class VulcanusBook {
         blueprints.add(JsonUtils.fromFile("vulcanus/tungsten-plate-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/science-metallurgic-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/belts-fluid-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("vulcanus/ammo.txt"));
         blueprints.add(JsonUtils.fromFile("military/worm-mine.txt"));
 
         book.setBlueprints(blueprints);
