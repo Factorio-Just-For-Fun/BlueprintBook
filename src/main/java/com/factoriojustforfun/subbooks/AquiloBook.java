@@ -24,10 +24,12 @@ public class AquiloBook {
                 new Icon(SignalID.builder().type(SignalID.Type.SPACE_LOCATION).name("aquilo").build(), 1)
         ));
 
-        List<BlueprintBookEntry> blueprints = new ArrayList<>(((BlueprintBookItem) JsonUtils.fromFile("aquilo/compendium-kerza.txt")).getBlueprintBook().getBlueprints());
-        // blueprints.add(JsonUtils.fromFile("aquilo/kickstart-kerza.txt"));
+        List<BlueprintBookEntry> blueprints = new ArrayList<>();
+        // new ArrayList<>(((BlueprintBookItem) JsonUtils.fromFile("aquilo/compendium-kerza.txt")).getBlueprintBook().getBlueprints());
+        blueprints.add(JsonUtils.fromFile("aquilo/kickstart-kerza.txt"));
         // blueprints.add(JsonUtils.fromFile("aquilo/early-power-kerza.txt"));
-        // blueprints.add(JsonUtils.fromFile("aquilo/power-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("aquilo/power-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("aquilo/ice-kerza.txt"));
         // blueprints.add(JsonUtils.fromFile("aquilo/quantum-processor-kerza.txt"));
         // blueprints.add(JsonUtils.fromFile("aquilo/science-cryo-kerza.txt"));
         // blueprints.add(JsonUtils.fromFile("aquilo/rockets-nightmare-kerza.txt"));
