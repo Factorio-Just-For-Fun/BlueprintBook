@@ -45,8 +45,8 @@ public class StarterBook {
         entries.add(new BlueprintBookItem(ScienceBook.generateBook(flags)));
         entries.add(JsonUtils.fromFile("malls/modules-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/uranium/uranium-processing-kerza.txt"));
-        entries.add(JsonUtils.fromFile("power/uranium/kovarex-kerza.txt"));
-        entries.add(JsonUtils.fromFile("power/uranium/nukes-kerza.txt"));
+        // entries.add(JsonUtils.fromFile("power/uranium/kovarex-kerza.txt"));
+        // entries.add(JsonUtils.fromFile("power/uranium/nukes-kerza.txt"));
         entries.add(JsonUtils.fromFile("power/nuclear/reactor-tileable-new.txt"));
         entries.add(JsonUtils.fromFile("power/fusion-tileable.txt"));
         entries.add(JsonUtils.fromFile("power/starter-216.txt"));

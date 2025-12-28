@@ -35,7 +35,7 @@ public class CommonBook {
         blueprints.add(JsonUtils.fromFile("common/fluids/plastic-double-mskitty.txt"));
         blueprints.add(JsonUtils.fromFile("common/fluids/rocket-fuel-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("ships/launchpad-2.txt"));
-        blueprints.add(JsonUtils.fromFile("common/smelting/foundry/ore-to-plates.txt"));
+        // blueprints.add(JsonUtils.fromFile("common/smelting/foundry/ore-to-plates.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/foundry/casting-ashy.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/foundry/casting-ashy-large.txt"));
         blueprints.add(JsonUtils.fromFile("common/smelting/foundry/smelting-ashy.txt"));
