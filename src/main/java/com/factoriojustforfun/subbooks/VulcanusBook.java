@@ -61,6 +61,7 @@ public class VulcanusBook {
 
         List<BlueprintBookEntry> blueprints = new ArrayList<>();
         blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS, "Main Bus [Vulcanus]")));
+        blueprints.add(JsonUtils.fromFile("vulcanus/starter.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/refinery-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/lava-breakdown.txt"));
         blueprints.add(JsonUtils.fromFile("vulcanus/molten-iron-kerza.txt"));
