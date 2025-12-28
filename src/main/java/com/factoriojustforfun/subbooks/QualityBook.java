@@ -26,7 +26,7 @@ public class QualityBook {
         // blueprints.add(JsonUtils.fromFile("quality/upcycler.txt"));
         blueprints.add(JsonUtils.fromFile("quality/tileable-assembler-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("quality/upcyclers-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("quality/products-from-ore-kerza.txt"));
+        blueprints.add(JsonUtils.fromFile("quality/products-from-ore-full-kerza.txt"));
         book.setBlueprints(blueprints);
         return book;
     }
