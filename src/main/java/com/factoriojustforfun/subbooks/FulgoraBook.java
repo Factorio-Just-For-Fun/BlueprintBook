@@ -5,7 +5,6 @@ import com.factoriojustforfun.objects.BlueprintBook;
 import com.factoriojustforfun.objects.BlueprintBookEntry;
 import com.factoriojustforfun.objects.Icon;
 import com.factoriojustforfun.objects.SignalID;
-import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
 import com.factoriojustforfun.utils.BlueprintUtils;
 import com.factoriojustforfun.utils.JsonUtils;
 
@@ -22,9 +21,10 @@ public class FulgoraBook {
         ));
 
         // blueprints.add(new BlueprintItem(BlueprintUtils.createMainBus(MAIN_BUS)));
-        List<BlueprintBookEntry> blueprints = new ArrayList<>(
-                ((BlueprintBookItem) JsonUtils.fromFile("fulgora/compendium-kerza.txt"))
-                        .getBlueprintBook().getBlueprints());
+        List<BlueprintBookEntry> blueprints = new ArrayList<>();
+                //new ArrayList<>(
+        //((BlueprintBookItem) JsonUtils.fromFile("fulgora/compendium-kerza.txt"))
+          //              .getBlueprintBook().getBlueprints());
         //blueprints = BlueprintUtils.fitOrderToIndices(blueprints);
         //blueprints.add(JsonUtils.fromFile("fulgora/scrap.txt"));
         //blueprints.addAll(((BlueprintBookItem) JsonUtils.fromFile("fulgora/filters-nightmare-kerza.txt"))
@@ -32,6 +32,9 @@ public class FulgoraBook {
         //blueprints.add(null);
         //blueprints.add(null);
         //blueprints.add(null);
+        blueprints.add(JsonUtils.fromFile("fulgora/rail-load.txt"));
+        blueprints.add(JsonUtils.fromFile("fulgora/rail-unload.txt"));
+        blueprints.add(JsonUtils.fromFile("fulgora/bus-offloading.txt"));
         BlueprintUtils.fitIndicesToOrder(blueprints);
 
         book.setBlueprints(blueprints);
