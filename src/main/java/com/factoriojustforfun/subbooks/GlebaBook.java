@@ -28,10 +28,10 @@ public class GlebaBook {
         blueprints.add(JsonUtils.fromFile("gleba/bus-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bus-ending-kerza.txt"));
 
-        blueprints.add(JsonUtils.fromFile("gleba/agritower-kerza.txt"));
+        // blueprints.add(JsonUtils.fromFile("gleba/agritower-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/agritower-4-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/bioflux-tileable-kerza.txt"));
-        blueprints.add(null);
+        // blueprints.add(null);
 
 
 
@@ -44,7 +44,7 @@ public class GlebaBook {
         blueprints.add(JsonUtils.fromFile("gleba/seeds-jellynut-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/seeds-yumako-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/plastic-tileable-kerza.txt"));
-        blueprints.add(JsonUtils.fromFile("gleba/lubricant-bioflux-jellynut.txt"));
+        // blueprints.add(JsonUtils.fromFile("gleba/lubricant-bioflux-jellynut.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/sulfuric-acid-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber-tileable-kerza.txt"));
         blueprints.add(JsonUtils.fromFile("gleba/carbon-fiber-upcycling-kerza.txt"));
