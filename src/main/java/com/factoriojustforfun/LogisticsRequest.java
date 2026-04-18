@@ -1,11 +1,6 @@
 package com.factoriojustforfun;
 
 import com.factoriojustforfun.objects.Blueprint;
-import com.factoriojustforfun.objects.Entity;
-import com.factoriojustforfun.objects.Position;
-import com.factoriojustforfun.utils.JsonUtils;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -47,80 +42,5 @@ public class LogisticsRequest {
         defaultOrder.add(Arrays.asList("solar-panel-equipment", "fusion-reactor-equipment", "battery-equipment", "battery-mk2-equipment", "belt-immunity-equipment", "exoskeleton-equipment", "personal-roboport-equipment", "personal-roboport-mk2-equipment", "night-vision-equipment"));
         defaultOrder.add(Arrays.asList("energy-shield-equipment", "energy-shield-mk2-equipment", "personal-laser-defense-equipment", "discharge-defense-equipment", "discharge-defense-remote"));
         defaultOrder.add(Arrays.asList("stone-wall", "gate", "gun-turret", "laser-turret", "flamethrower-turret", "artillery-turret", "artillery-targeting-remote", "radar"));
-    }
-
-    public LogisticsRequest(Blueprint blueprint) {
-        double minY = blueprint.getEntities().parallelStream().mapToDouble(it -> it.getPosition().getY()).min().getAsDouble();
-        blueprint.getEntities().parallelStream().forEach(entity -> {
-            entity.getControlBehavior().get("filters").forEach(filter -> {
-                if (entity.getPosition().getY() == minY)
-                    minimums.put(filter.get("signal").get("name").asText(), filter.get("count").asInt());
-                else maximums.put(filter.get("signal").get("name").asText(), filter.get("count").asInt());
-            });
-        });
-    }
-
-    public Blueprint toBlueprint() {
-        Blueprint blueprint = new Blueprint();
-
-        List<Entity> entities = new ArrayList<>();
-        for (int x = 0; x < defaultOrder.size(); x++) {
-            Entity minimum = new Entity();
-            minimum.setName("constant-combinator");
-            minimum.setPosition(new Position(x + 0.5, 0.5));
-
-            Entity maximum = new Entity();
-            maximum.setName("constant-combinator");
-            maximum.setPosition(new Position(x + 0.5, 4.5));
-
-            ArrayNode minimumFilters = JsonUtils.MAPPER.createArrayNode();
-            ArrayNode maximumFilters = JsonUtils.MAPPER.createArrayNode();
-
-            List<String> items = defaultOrder.get(x);
-            for (int itemIndex = 0; itemIndex < items.size(); itemIndex++) {
-                String item = items.get(itemIndex);
-                ObjectNode signal = JsonUtils.MAPPER.createObjectNode();
-                signal.put("type", "item");
-                signal.put("name", item);
-
-                if (minimums.containsKey(item)) {
-                    ObjectNode filter = JsonUtils.MAPPER.createObjectNode();
-                    filter.set("signal", signal);
-                    filter.put("count", minimums.get(item));
-                    filter.put("index", itemIndex + 1);
-
-                    minimumFilters.add(filter);
-                }
-                if (maximums.containsKey(item)) {
-                    ObjectNode filter = JsonUtils.MAPPER.createObjectNode();
-                    filter.set("signal", signal);
-                    filter.put("count", maximums.get(item));
-                    filter.put("index", itemIndex + 1);
-
-                    maximumFilters.add(filter);
-                }
-            }
-
-            if (!minimumFilters.isEmpty()) {
-                ObjectNode controlBehavior = JsonUtils.MAPPER.createObjectNode();
-                controlBehavior.set("filters", minimumFilters);
-                minimum.setControlBehavior(controlBehavior);
-
-                minimum.setEntityNumber(entities.size() + 1);
-                entities.add(minimum);
-            }
-
-            if (!maximumFilters.isEmpty()) {
-                ObjectNode controlBehavior = JsonUtils.MAPPER.createObjectNode();
-                controlBehavior.set("filters", maximumFilters);
-                maximum.setControlBehavior(controlBehavior);
-
-                maximum.setEntityNumber(entities.size() + 1);
-                entities.add(maximum);
-            }
-        }
-
-        blueprint.setEntities(entities);
-        return blueprint;
     }
 }

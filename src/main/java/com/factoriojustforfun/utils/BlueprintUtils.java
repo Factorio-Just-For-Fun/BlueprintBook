@@ -3,7 +3,6 @@ package com.factoriojustforfun.utils;
 import com.factoriojustforfun.objects.*;
 import com.factoriojustforfun.objects.bookentries.BlueprintBookItem;
 import com.factoriojustforfun.objects.bookentries.BlueprintItem;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +14,10 @@ public class BlueprintUtils {
     public static final Map<String, Color> STATION_COLORS = new HashMap<>();
 
     static {
-        STATION_COLORS.put("iron-ore", new Color(	70, 124, 155, 127));
-        STATION_COLORS.put("copper-ore", new Color(	238, 79, 58, 127));
+        STATION_COLORS.put("iron-ore", new Color(70, 124, 155, 127));
+        STATION_COLORS.put("copper-ore", new Color(238, 79, 58, 127));
         STATION_COLORS.put("coal", new Color(0, 0, 0, 127));
-        STATION_COLORS.put("stone", new Color(	193, 143, 53, 127));
+        STATION_COLORS.put("stone", new Color(193, 143, 53, 127));
         STATION_COLORS.put("uranium-ore", new Color(97, 205, 0, 127));
 
         STATION_COLORS.put("crude-oil", new Color(0, 0, 0, 127));
@@ -47,12 +46,10 @@ public class BlueprintUtils {
         consumer.accept(entry);
     }
 
-    public static void patch(BlueprintBookEntry entry) {
-        forEachBlueprint(entry, it -> applyFixes(it, ""));
-    }
     public static void patch(BlueprintBookEntry entry, String tag) {
         forEachBlueprint(entry, it -> applyFixes(it, tag));
     }
+
     public static void applyFixes(BlueprintBookEntry entry, String tag) {
         if (!(entry instanceof BlueprintBookItem) && !(entry instanceof BlueprintItem)) {
             LOGGER.debug("Skipping entry as not a blueprint or blueprint book");
@@ -73,14 +70,15 @@ public class BlueprintUtils {
 
         String newDescription = description.replaceAll("\\d{4}-\\d{2}-\\d{2} FJFF (Common )?Blueprints compiled by ((i_cant)|(Ashy(314)?)).\\nhttps://discord\\.gg/ehHEDDnPWA", "");
 
-        if (!newDescription.equals(description)){
+        if (!newDescription.equals(description)) {
             LOGGER.warn("Blueprint {} had an outdated tag! ({})", label, description);
         }
 
         newDescription = (newDescription + "\n\n" + tag).replaceAll("(\\r\\n|\\r|\\n){2,}", "\n\n").trim();
 
         LOGGER.debug("Applying description.");
-        if (entry instanceof BlueprintBookItem) ((BlueprintBookItem) entry).getBlueprintBook().setDescription(newDescription.trim());
+        if (entry instanceof BlueprintBookItem)
+            ((BlueprintBookItem) entry).getBlueprintBook().setDescription(newDescription.trim());
         else {
             Blueprint blueprint = ((BlueprintItem) entry).getBlueprint();
 
@@ -117,65 +115,6 @@ public class BlueprintUtils {
                 trainStop.setColor(entry.getValue());
                 break;
             }
-        }
-    }
-
-    public static Blueprint createMainBus(List<String> entries, String name) {
-        LOGGER.debug("Creating Main Bus with entries {}", entries);
-
-        Blueprint blueprint = new Blueprint();
-        blueprint.setLabel(name);
-
-        List<Entity> entities = new ArrayList<>();
-
-        for (int index = 0; index < entries.size(); index++) {
-            String entry = entries.get(index);
-
-            Entity combinator = new Entity();
-            combinator.setName("display-panel");
-            combinator.setEntityNumber(index + 1);
-            combinator.setPosition(new Position(index + Math.floorDiv(index, 4) * 2 + 0.5, 0.5));
-
-            ObjectNode iconNode = JsonUtils.MAPPER.createObjectNode();
-            String[] filter = entry.split(":");
-            iconNode.put("name", filter[filter.length - 1]);
-            if (filter.length > 1) {
-                iconNode.put("type", filter[0]);
-            }
-
-            combinator.setOtherField("icon", iconNode);
-
-            entities.add(combinator);
-        }
-
-        blueprint.setEntities(entities);
-        return blueprint;
-    }
-
-    public static List<BlueprintBookEntry> explode(List<BlueprintBookEntry> entries) {
-        LOGGER.debug("Exploding entries {}", entries);
-        List<BlueprintBookEntry> explodedEntries = new ArrayList<>(entries.size());
-        for (BlueprintBookEntry entry : entries) {
-            if (entry instanceof BlueprintBookItem) explodedEntries.addAll(((BlueprintBookItem) entry).getBlueprintBook().getBlueprints());
-            else explodedEntries.add(entry);
-        }
-
-        return explodedEntries;
-    }
-
-    public static List<BlueprintBookEntry> fitOrderToIndices(List<BlueprintBookEntry> entries) {
-        List<BlueprintBookEntry> result = new ArrayList<>();
-        for (BlueprintBookEntry entry : entries) {
-            while (result.size() < entry.getIndex() + 1) result.add(null);
-            result.set(entry.getIndex(), entry);
-        }
-        return result;
-    }
-
-    public static void fitIndicesToOrder(List<BlueprintBookEntry> entries) {
-        for (int i = 0; i < entries.size(); i++) {
-            BlueprintBookEntry entry = entries.get(i);
-            if (entry != null) entry.setIndex(i);
         }
     }
 }
